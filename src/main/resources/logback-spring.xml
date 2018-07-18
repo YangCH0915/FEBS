@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<xml scan="true" scanPeriod="60 seconds" debug="false">
+<!--suppress XmlWrongRootElement -->
+<Configuration scan="true" scanPeriod="60 seconds" debug="false">
 
     <contextName>sms</contextName>
 
@@ -59,4 +60,4 @@
         <appender-ref ref="file_info" />
         <appender-ref ref="file_error" />
     </root>
-</xml>
+</Configuration>

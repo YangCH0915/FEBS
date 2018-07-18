@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = Application.class)
 public class ApplicationTest {
 
-
     @Autowired
     private UserService userService;
 

@@ -22,6 +22,7 @@ public class Role implements Serializable {
 
 	@Column(name = "ROLE_NAME")
 	@ExportConfig(value = "角色")
+
 	private String roleName;
 
 	@Column(name = "REMARK")
