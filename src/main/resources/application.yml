@@ -87,6 +87,11 @@ spring:
   thymeleaf:
     cache: false
 
+devtools:
+     restart:
+       enabled: true
+       exclude: WEB-INF/**
+
   aop:
     proxy-target-class: true
 
