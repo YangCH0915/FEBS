@@ -3,12 +3,12 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>cc.mrbird</groupId>
+	<groupId>cn.xry</groupId>
 	<artifactId>project</artifactId>
 	<version>2.0</version>
 	<packaging>jar</packaging>
 
-	<name>febs</name>
+	<name>plat</name>
 	<description>Authority Management System</description>
 
 	<parent>
@@ -162,6 +162,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.46</version>
 		</dependency>
 
 		<!-- druid数据源驱动 -->
@@ -173,36 +174,29 @@
 
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>nexus-aliyun</id>
-			<name>Nexus aliyun</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!--  
-	        <plugin>
+
+	        <!--<plugin>
 	            <groupId>org.mybatis.generator</groupId>
 	            <artifactId>mybatis-generator-maven-plugin</artifactId>
 	            <version>1.3.5</version>
-	            <dependencies>
-			        <dependency>
-			            <groupId>mysql</groupId>
-			            <artifactId>mysql-connector-java</artifactId>
-			        </dependency>
-	                <dependency>
-	                    <groupId>tk.mybatis</groupId>
-	                    <artifactId>mapper</artifactId>
-	                    <version>3.4.0</version>
-	                </dependency>
-	            </dependencies>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.30</version>
+					</dependency>
+					<dependency>
+						<groupId>tk.mybatis</groupId>
+						<artifactId>mapper</artifactId>
+						<version>3.4.0</version>
+					</dependency>
+				</dependencies>
 	            <executions>
 	                <execution>
 	                    <id>Generate MyBatis Artifacts</id>
@@ -217,9 +211,8 @@
 	                <overwrite>true</overwrite>
 	                <configurationFile>src/main/resources/config/mybatis-generator.xml</configurationFile>
 	            </configuration>
-	        </plugin>
-	        -->
+	        </plugin>-->
 		</plugins>
-		<finalName>febs</finalName>
+		<finalName>plat</finalName>
 	</build>
 </project>

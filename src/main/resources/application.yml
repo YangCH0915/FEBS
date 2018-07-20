@@ -2,14 +2,15 @@ server:
   port: 8080
   tomcat:
     uri-encoding: utf-8
-    
+
+
 spring:
   datasource:
     druid:
       # 数据库访问配置, 使用druid数据源 
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/febs?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://127.0.0.1:3306/plat?useUnicode=true&characterEncoding=utf8
       username: root
       password: 123456
       # 连接池配置
@@ -33,7 +34,7 @@ spring:
       # 配置监控统计拦截的filters, 去掉后监控界面sql无法统计, 'wall'用于防火墙
       filters: stat
       # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
-      aop-patterns: cc.mrbird.servie.*
+      aop-patterns: cn.xry.servie.*
       
       # WebStatFilter配置
       web-stat-filter:
@@ -92,7 +93,7 @@ spring:
 mybatis:
   config-location: classpath:config/mybatis-config.xml
   # type-aliases扫描路径
-  type-aliases-package: cc.mrbird.system.domain
+  type-aliases-package: cn.xry.system.domain
   # mapper xml实现扫描路径
   mapper-locations: classpath:mapper/*/*.xml
   property:
@@ -100,7 +101,7 @@ mybatis:
     
 #mappers 多个接口时逗号隔开
 mapper:
-  mappers: cc.mrbird.common.config.MyMapper
+  mappers: cn.xry.common.config.MyMapper
   not-empty: false
   identity: MYSQL
   order: after
@@ -119,8 +120,8 @@ logging:
         system:
           dao: warn
 
-# febs 配置
-febs:
+# plat 配置
+plat:
   shiro:
     # shiro redis缓存时长，默认1800秒
     expireIn: 1800
@@ -150,3 +151,4 @@ febs:
     height: 33
     # 验证码字符个数，默认4个字符
     length: 4
+
