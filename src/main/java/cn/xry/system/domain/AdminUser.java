@@ -1,10 +1,10 @@
-package cn.xry.job.domain;
+package cn.xry.system.domain;
 
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "admin_user")
-public class AdminUer {
+public class AdminUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

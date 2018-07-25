@@ -3,7 +3,6 @@ server:
   tomcat:
     uri-encoding: utf-8
 
-
 spring:
   datasource:
     druid:
@@ -86,11 +85,6 @@ spring:
 
   thymeleaf:
     cache: false
-
-devtools:
-     restart:
-       enabled: true
-       exclude: WEB-INF/**
 
   aop:
     proxy-target-class: true
