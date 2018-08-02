@@ -81,6 +81,7 @@ public class MenuController extends BaseController {
 	public ResponseBo getUserMenu(String userName) {
 		try {
 			Tree<Menu> tree = this.menuService.getUserMenu(userName);
+			System.out.println(tree.toString());
 			return ResponseBo.ok(tree);
 		} catch (Exception e) {
 			e.printStackTrace();

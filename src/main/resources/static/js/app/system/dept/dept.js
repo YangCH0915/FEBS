@@ -52,6 +52,7 @@ function deleteDepts() {
         $MB.n_warning("请勾选需要删除的部门！");
         return;
     }
+
     for (var i = 0; i < ids.length; i++) {
         ids_arr += ids[i].id;
         if (i !== (ids.length - 1)) ids_arr += ",";

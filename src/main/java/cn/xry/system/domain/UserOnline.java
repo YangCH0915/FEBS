@@ -28,7 +28,6 @@ public class UserOnline implements Serializable{
     // 所在地
     private String location;
 
-
 	public String getLocation() {
 		return location;
 	}

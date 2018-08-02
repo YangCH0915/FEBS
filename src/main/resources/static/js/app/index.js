@@ -96,6 +96,7 @@ $(window).on("load", function () {
     $.post(ctx + "menu/getUserMenu", {"userName": userName}, function (r) {
         if (r.code === 0) {
             var data = r.msg;
+            console.log(data);
             var $crollbarInner = $(".scrollbar-inner");
             document.getElementById("navigation").innerHTML = forTree(data.children);
             menuTree();
@@ -160,39 +161,3 @@ function loadMain(obj) {
     });
 }
 
-/**
- * 全屏切换
- * @param obj
- */
-function fullScreen(obj) {
-    var $this = $(obj);
-    var element;
-    if ($this.text() === '全屏') {
-        $this.text("退出全屏");
-        element = document.documentElement;
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        } else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        } else if (element.webkitRequestFullscreen) {
-            element.webkitRequestFullscreen();
-        } else if (element.msRequestFullscreen) {
-            element.msRequestFullscreen();
-        } else {
-            $MB.n_info("当前浏览器不支持全屏或已被禁用！");
-            $this.text("全屏");
-        }
-    } else {
-        elem = document;
-        $this.text("全屏");
-        if (elem.webkitCancelFullScreen) {
-            elem.webkitCancelFullScreen();
-        } else if (elem.mozCancelFullScreen) {
-            elem.mozCancelFullScreen();
-        } else if (elem.cancelFullScreen) {
-            elem.cancelFullScreen();
-        } else if (elem.exitFullscreen) {
-            elem.exitFullscreen();
-        }
-    }
-}
