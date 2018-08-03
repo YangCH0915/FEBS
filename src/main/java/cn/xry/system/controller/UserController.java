@@ -111,6 +111,7 @@ public class UserController extends BaseController {
 
 	@Log("更换主题")
 	@RequestMapping("user/theme")
+
 	@ResponseBody
 	public ResponseBo updateTheme(User user) {
 		try {

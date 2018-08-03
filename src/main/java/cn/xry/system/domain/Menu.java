@@ -195,4 +195,20 @@ public class Menu implements Serializable {
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
 	}
+
+	@Override
+	public String toString() {
+		return "Menu{" +
+				"menuId=" + menuId +
+				", parentId=" + parentId +
+				", menuName='" + menuName + '\'' +
+				", url='" + url + '\'' +
+				", perms='" + perms + '\'' +
+				", icon='" + icon + '\'' +
+				", type='" + type + '\'' +
+				", orderNum=" + orderNum +
+				", createTime=" + createTime +
+				", modifyTime=" + modifyTime +
+				'}';
+	}
 }

@@ -92,6 +92,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 	public Tree<Menu> getUserMenu(String userName) {
 		List<Tree<Menu>> trees = new ArrayList<>();
 		List<Menu> menus = this.findUserMenus(userName);
+
 		for (Menu menu : menus) {
 			Tree<Menu> tree = new Tree<>();
 			tree.setId(menu.getMenuId().toString());
@@ -148,5 +149,4 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 			menu.setParentId(0L);
 		this.updateNotNull(menu);
 	}
-
 }
