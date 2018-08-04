@@ -21,16 +21,12 @@
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
   </resultMap>
   
-  <select id="findUserWithDept" resultType="user" parameterType="user">
-  		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,
-  		u.ssex,d.dept_name deptName from t_user u 
-  		left join t_dept d on(u.dept_id = d.dept_id)
+  <select id="findUser" resultType="user" parameterType="user">
+  		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time,
+  		u.ssex from t_user u
   		where 1=1
   		<if test="username != null and username != ''">
         	AND u.username = #{username}
-	    </if>
-	    <if test="deptId != null and deptId != ''">
-	        AND d.dept_id = #{deptId}
 	    </if>
   		<if test="ssex != null and ssex != ''">
 	        AND u.ssex = #{ssex}
@@ -43,7 +39,7 @@
   
     
   <select id="findUserWithRole" resultType="userWithRole">
-		select u.user_id userId,u.username,u.dept_id deptId,u.email,u.mobile,
+		select u.user_id userId,u.username,u.email,u.mobile,
 		u.status,u.ssex,ur.role_id roleId from t_user u
 		left join t_user_role ur on (u.user_id = ur.user_id)
 		where u.user_id = #{userId}
@@ -53,24 +49,20 @@
 	SELECT
 		U .USERNAME,
 		U .USER_ID userId,
-		D .DEPT_NAME deptName,
 		U .mobile,
 		U .email,
 		U .avatar,
 		U .description,
 		U .ssex,
-		U .dept_id deptId,
 		group_concat(r.role_name) AS roleName
 	FROM
 		t_user U
-	LEFT JOIN t_dept D ON U .DEPT_ID = D .DEPT_ID
 	LEFT JOIN T_USER_ROLE ur ON U .user_id = ur.user_id
 	LEFT JOIN t_role r ON r.role_id = ur.role_id
 	WHERE
 		U .USER_ID = #{userId}
 	GROUP BY
 		U .username,
-		D .dept_name,
 		U .mobile,
 		U .email,
 		U .avatar,

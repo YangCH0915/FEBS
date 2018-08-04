@@ -12,7 +12,7 @@ public interface UserService extends IService<User> {
 	
 	User findByName(String userName);
 
-	List<User> findUserWithDept(User user);
+	List<User> findUser(User user);
 
 	void registUser(User user);
 

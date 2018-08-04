@@ -44,10 +44,6 @@ public class User implements Serializable {
 	@Column(name = "DEPT_ID")
 	private Long deptId;
 
-	@Transient
-	@ExportConfig(value = "部门")
-	private String deptName;
-
 	@Column(name = "EMAIL")
 	@ExportConfig(value = "邮箱")
 	private String email;
@@ -77,6 +73,9 @@ public class User implements Serializable {
 	@Column(name = "THEME")
 	private String theme;
 
+	/**
+	 * 头像
+	 */
 	@Column(name = "AVATAR")
 	private String avatar;
 
@@ -246,14 +245,6 @@ public class User implements Serializable {
 
 	public void setTheme(String theme) {
 		this.theme = theme;
-	}
-
-	public String getDeptName() {
-		return deptName;
-	}
-
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
 	}
 
 	public String getAvatar() {

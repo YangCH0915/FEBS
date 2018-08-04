@@ -64,7 +64,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> userList(QueryRequest request, User user) {
 		PageHelper.startPage(request.getPageNum(), request.getPageSize());
-		List<User> list = this.userService.findUserWithDept(user);
+		List<User> list = this.userService.findUser(user);
 		PageInfo<User> pageInfo = new PageInfo<>(list);
 		return getDataTable(pageInfo);
 	}
@@ -73,7 +73,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public ResponseBo userExcel(User user) {
 		try {
-			List<User> list = this.userService.findUserWithDept(user);
+			List<User> list = this.userService.findUser(user);
 			return FileUtils.createExcelByPOIKit("用户表", list, User.class);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public ResponseBo userCsv(User user) {
 		try {
-			List<User> list = this.userService.findUserWithDept(user);
+			List<User> list = this.userService.findUser(user);
 			return FileUtils.createCsv("用户表", list, User.class);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,20 +106,6 @@ public class UserController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBo.error("注册失败，请联系网站管理员！");
-		}
-	}
-
-	@Log("更换主题")
-	@RequestMapping("user/theme")
-
-	@ResponseBody
-	public ResponseBo updateTheme(User user) {
-		try {
-			this.userService.updateTheme(user.getTheme(), user.getUsername());
-			return ResponseBo.ok();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseBo.error();
 		}
 	}
 
