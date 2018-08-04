@@ -1,3 +1,4 @@
+
 $(function () {
     var settings = {
         url: ctx + "role/list",

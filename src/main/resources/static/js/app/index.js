@@ -143,6 +143,7 @@ function loadMain(obj) {
     // 加载内容
     var $name = $this.attr("name");
     $.post(ctx + $name, {}, function (r) {
+        console.log(ctx + $name);
         if (r.indexOf('账户登录') !== -1) {
             location = location;
             return;
