@@ -5,7 +5,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <result column="ROLE_ID" jdbcType="DECIMAL" property="roleId" />
-    <result column="MENU_ID" jdbcType="DECIMAL" property="menuId" />
+    <result column="role_id" jdbcType="DECIMAL" property="roleId" />
+    <result column="menu_id" jdbcType="DECIMAL" property="menuId" />
   </resultMap>
 </mapper>

@@ -31,7 +31,6 @@ $(function () {
         $('#default-avatars').modal();
     });
     validateRule();
-    createDeptTree();
 
     $("#update-profile .btn-save").click(function () {
         getDept();
@@ -60,7 +59,6 @@ function editUserProfile() {
     $.post(ctx + "user/getUserProfile", {"userId": userId}, function (r) {
         if (r.code === 0) {
             var $form = $('#update-profile');
-            var $deptTree = $('#deptTree');
             $form.modal();
             var user = r.msg;
             $form.find("input[name='username']").val(user.username).attr("readonly", true);
@@ -70,8 +68,6 @@ function editUserProfile() {
             $form.find("input[name='mobile']").val(user.mobile);
             $form.find("input[name='description']").val(user.description);
             $("input:radio[value='" + user.ssex + "']").attr("checked", true);
-            $deptTree.jstree().open_all();
-            $deptTree.jstree('select_node', user.deptId, true);
         } else {
             $MB.n_danger(r.msg);
         }
@@ -110,32 +106,4 @@ function validateRule() {
     });
 }
 
-function createDeptTree() {
-    $.post(ctx + "dept/tree", {}, function (r) {
-        if (r.code === 0) {
-            var data = r.msg;
-            $('#deptTree').jstree({
-                "core": {
-                    'data': data.children,
-                    'multiple': false
-                },
-                "state": {
-                    "disabled": true
-                },
-                "checkbox": {
-                    "three_state": false
-                },
-                "plugins": ["wholerow", "checkbox"]
-            });
-        } else {
-            $MB.n_danger(r.msg);
-        }
-    })
-
-}
-
-function getDept() {
-    var ref = $('#deptTree').jstree(true);
-    $("[name='deptId']").val(ref.get_selected()[0]);
-}
 

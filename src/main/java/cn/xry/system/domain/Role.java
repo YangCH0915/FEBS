@@ -9,30 +9,30 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "t_role")
+@Table(name = "role")
 public class Role implements Serializable {
 
 	private static final long serialVersionUID = -1714476694755654924L;
 
 	@Id
 	@GeneratedValue(generator = "JDBC")
-	@Column(name = "ROLE_ID")
+	@Column(name = "role_id")
 	private Long roleId;
 
-	@Column(name = "ROLE_NAME")
+	@Column(name = "role_name")
 	@ExportConfig(value = "角色")
 
 	private String roleName;
 
-	@Column(name = "REMARK")
+	@Column(name = "remark")
 	@ExportConfig(value = "描述")
 	private String remark;
 
-	@Column(name = "CREATE_TIME")
+	@Column(name = "create_time")
 	@ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
 	private Date createTime;
 
-	@Column(name = "MODIFY_TIME")
+	@Column(name = "modify_time")
 	private Date modifyTime;
 
 	/**

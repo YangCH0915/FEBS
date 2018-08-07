@@ -5,8 +5,8 @@ import cn.xry.common.config.PlatProperies;
 import cn.xry.common.util.AddressUtils;
 import cn.xry.common.util.HttpContextUtils;
 import cn.xry.common.util.IPUtils;
+import cn.xry.system.domain.AdminUser;
 import cn.xry.system.domain.SysLog;
-import cn.xry.system.domain.User;
 import cn.xry.system.service.LogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -66,7 +66,7 @@ public class LogAspect {
     }
 
     private void saveLog(ProceedingJoinPoint joinPoint, long time) throws JsonProcessingException {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        AdminUser user = (AdminUser) SecurityUtils.getSubject().getPrincipal();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         SysLog log = new SysLog();

@@ -1,28 +1,22 @@
 package cn.xry.common.shiro;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import cn.xry.system.domain.AdminUser;
 import cn.xry.system.domain.Menu;
 import cn.xry.system.domain.Role;
-import cn.xry.system.domain.User;
 import cn.xry.system.service.MenuService;
 import cn.xry.system.service.RoleService;
 import cn.xry.system.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -45,9 +39,8 @@ public class ShiroRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-		User user = (User) SecurityUtils.getSubject().getPrincipal();
+		AdminUser user = (AdminUser) SecurityUtils.getSubject().getPrincipal();
 		String userName = user.getUsername();
-
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 
 		// 获取用户角色集
@@ -82,7 +75,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		String password = new String((char[]) token.getCredentials());
 
 		// 通过用户名到数据库查询用户信息
-		User user = this.userService.findByName(userName);
+		AdminUser user = this.userService.findByName(userName);
 
 		if (user == null) {
 			throw new UnknownAccountException("用户名或密码错误！");
@@ -90,7 +83,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		if (!password.equals(user.getPassword())) {
 			throw new IncorrectCredentialsException("用户名或密码错误！");
 		}
-		if (User.STATUS_LOCK.equals(user.getStatus())) {
+		if (AdminUser.STATUS_LOCK.equals(user.getStatus())) {
 			throw new LockedAccountException("账号已被锁定,请联系管理员！");
 		}
 		return new SimpleAuthenticationInfo(user, password, getName());

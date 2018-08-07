@@ -1,8 +1,6 @@
 package cn.xry;
 
-import cn.xry.common.domain.Tree;
 import cn.xry.system.domain.Menu;
-import cn.xry.system.domain.User;
 import cn.xry.system.service.MenuService;
 import cn.xry.system.service.UserService;
 import org.junit.Test;
@@ -25,17 +23,8 @@ public class ApplicationTest {
 
     @Test
     public void test() {
-        User user = this.userService.findByName("mrbird");
-        System.out.println(user.getUsername());
+        List<Menu> user = menuService.findUserMenus("admin");
+        System.out.println(user);
     }
 
-    @Test
-    public void getMenuTree() {
-    }
-
-    @Test
-    public void getUserMenu() {
-        List<Menu> tree =  this.menuService.findUserMenus("MrBird");
-        System.out.println(tree.toString());
-    }
 }

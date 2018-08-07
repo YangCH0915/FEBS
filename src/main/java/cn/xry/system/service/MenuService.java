@@ -29,5 +29,5 @@ public interface MenuService extends IService<Menu> {
 
 	void updateMenu(Menu menu);
 	
-	void deleteMeuns(String menuIds);
+	void deleteMenus(String menuIds);
 }

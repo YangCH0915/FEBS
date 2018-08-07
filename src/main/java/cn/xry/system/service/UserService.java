@@ -1,26 +1,22 @@
 package cn.xry.system.service;
 
 import cn.xry.common.service.IService;
-import cn.xry.system.domain.User;
-import cn.xry.system.domain.UserWithRole;
+import cn.xry.system.domain.AdminUser;
+import cn.xry.system.domain.AdminUserWithRole;
 
 import java.util.List;
 
-public interface UserService extends IService<User> {
+public interface UserService extends IService<AdminUser> {
 
-	UserWithRole findById(Long userId);
-	
-	User findByName(String userName);
+	AdminUser findByName(String userName);
 
-	List<User> findUser(User user);
+	List<AdminUser> findUser(AdminUser user);
 
-	void registUser(User user);
+	void registerUser(AdminUser user);
 
-	void updateTheme(String theme, String userName);
+	void addUser(AdminUser user, Long[] roles);
 
-	void addUser(User user, Long[] roles);
-
-	void updateUser(User user, Long[] roles);
+	void updateUser(AdminUser user, Long[] roles);
 	
 	void deleteUsers(String userIds);
 
@@ -28,7 +24,7 @@ public interface UserService extends IService<User> {
 	
 	void updatePassword(String password);
 	
-	User findUserProfile(User user);
-	
-	void updateUserProfile(User user);
+	AdminUser findUserProfile(AdminUser user);
+
+	AdminUserWithRole findAdminUserWithRole(Long userId);
 }

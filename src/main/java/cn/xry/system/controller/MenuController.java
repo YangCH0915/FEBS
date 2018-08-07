@@ -158,7 +158,7 @@ public class MenuController extends BaseController {
 	@ResponseBody
 	public ResponseBo deleteMenus(String ids) {
 		try {
-			this.menuService.deleteMeuns(ids);
+			this.menuService.deleteMenus(ids);
 			return ResponseBo.ok("删除成功！");
 		} catch (Exception e) {
 			e.printStackTrace();

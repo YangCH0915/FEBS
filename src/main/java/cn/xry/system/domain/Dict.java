@@ -1,39 +1,31 @@
 package cn.xry.system.domain;
 
-import cn.xry.common.annotation.ExportConfig;
-
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
-@Table(name = "t_dict")
+@Table(name = "dict")
 public class Dict implements Serializable{
 
 	private static final long serialVersionUID = 7780820231535870010L;
 
 	@Id
 	@GeneratedValue(generator = "JDBC")
-	@Column(name = "DICT_ID")
-	@ExportConfig(value = "字典ID")
+	@Column(name = "dict_id")
 	private Long dictId;
 
-	@Column(name = "KEYY")
-	@ExportConfig(value = "字典Key")
+	@Column(name = "keyy")
 	private String keyy;
 
-	@Column(name = "VALUEE")
-	@ExportConfig(value = "字典Value")
+	@Column(name = "valuee")
 	private String valuee;
 
-	@Column(name = "TABLE_NAME")
-	@ExportConfig(value = "列名")
+	@Column(name = "table_name")
 	private String tableName;
 
-	@Column(name = "FIELD_NAME")
-	@ExportConfig(value = "表名")
+	@Column(name = "field_name")
 	private String fieldName;
 
 	/**

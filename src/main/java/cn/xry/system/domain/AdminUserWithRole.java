@@ -2,20 +2,20 @@ package cn.xry.system.domain;
 
 import java.util.List;
 
-public class UserWithRole extends User{
+public class AdminUserWithRole extends AdminUser{
 	
 	private static final long serialVersionUID = -5680235862276163462L;
 	
-	private Long RoleId;
+	private Long roleId;
 	
 	private List<Long> roleIds;
 
 	public Long getRoleId() {
-		return RoleId;
+		return roleId;
 	}
 
 	public void setRoleId(Long roleId) {
-		RoleId = roleId;
+		roleId = roleId;
 	}
 
 	public List<Long> getRoleIds() {

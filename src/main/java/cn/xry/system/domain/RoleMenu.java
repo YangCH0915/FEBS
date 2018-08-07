@@ -1,19 +1,18 @@
 package cn.xry.system.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Table;
+import java.io.Serializable;
 
-@Table(name = "t_role_menu")
+@Table(name = "role_menu")
 public class RoleMenu implements Serializable {
 	
 	private static final long serialVersionUID = -7573904024872252113L;
 
-	@Column(name = "ROLE_ID")
+	@Column(name = "role_id")
     private Long roleId;
 
-    @Column(name = "MENU_ID")
+    @Column(name = "menu_id")
     private Long menuId;
 
     /**

@@ -5,10 +5,10 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="DICT_ID" jdbcType="DECIMAL" property="dictId" />
-    <result column="KEY" jdbcType="DECIMAL" property="key" />
-    <result column="VALUE" jdbcType="VARCHAR" property="value" />
-    <result column="FIELD_NAME" jdbcType="VARCHAR" property="fieldName" />
-    <result column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <id column="dict_id" jdbcType="DECIMAL" property="dictId" />
+    <result column="keyy" jdbcType="DECIMAL" property="keyy" />
+    <result column="valuee" jdbcType="VARCHAR" property="valuee" />
+    <result column="field_name" jdbcType="VARCHAR" property="fieldName" />
+    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
   </resultMap>
 </mapper>

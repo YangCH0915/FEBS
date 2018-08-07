@@ -2,11 +2,11 @@ package cn.xry.system.service.impl;
 
 import cn.xry.common.service.impl.BaseService;
 import cn.xry.common.util.MD5Utils;
-import cn.xry.system.dao.UserMapper;
+import cn.xry.system.dao.AdminUserMapper;
 import cn.xry.system.dao.UserRoleMapper;
-import cn.xry.system.domain.User;
+import cn.xry.system.domain.AdminUser;
+import cn.xry.system.domain.AdminUserWithRole;
 import cn.xry.system.domain.UserRole;
-import cn.xry.system.domain.UserWithRole;
 import cn.xry.system.service.UserRoleService;
 import cn.xry.system.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -23,10 +23,10 @@ import java.util.List;
 
 @Service("userService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class UserServiceImpl extends BaseService<User> implements UserService {
+public class UserServiceImpl extends BaseService<AdminUser> implements UserService {
 
 	@Autowired
-	private UserMapper userMapper;
+	private AdminUserMapper userMapper;
 
 	@Autowired
 	private UserRoleMapper userRoleMapper;
@@ -34,22 +34,23 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	@Autowired
 	private UserRoleService userRoleService;
 
+
 	@Override
-	public User findByName(String userName) {
-		Example example = new Example(User.class);
+	public AdminUser findByName(String userName) {
+		Example example = new Example(AdminUser.class);
 		example.createCriteria().andCondition("lower(username)=", userName.toLowerCase());
-		List<User> list = this.selectByExample(example);
-		if (list.size() == 0) {
+		List<AdminUser> users = this.selectByExample(example);
+		if (users.size() == 0) {
 			return null;
 		} else {
-			return list.get(0);
+			return users.get(0);
 		}
 	}
 
 	@Override
-	public List<User> findUser(User user) {
+	public List<AdminUser> findUser(AdminUser user) {
 		try {
-			return this.userMapper.findUser(user);
+			return this.userMapper.findAdminUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<>();
@@ -58,11 +59,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Override
 	@Transactional
-	public void registUser(User user) {
-		user.setCrateTime(new Date());
-		user.setTheme(User.DEFAULT_THEME);
-		user.setAvatar(User.DEFAULT_AVATAR);
-		user.setSsex(User.SEX_UNKNOW);
+	public void registerUser(AdminUser user) {
+		user.setCreateTime(new Date());
+		user.setAvatar(AdminUser.DEFAULT_AVATAR);
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		this.save(user);
 		UserRole ur = new UserRole();
@@ -73,26 +72,15 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Override
 	@Transactional
-	public void updateTheme(String theme, String userName) {
-		Example example = new Example(User.class);
-		example.createCriteria().andCondition("username=", userName);
-		User user = new User();
-		user.setTheme(theme);
-		this.userMapper.updateByExampleSelective(user, example);
-	}
-
-	@Override
-	@Transactional
-	public void addUser(User user, Long[] roles) {
-		user.setCrateTime(new Date());
-		user.setTheme(User.DEFAULT_THEME);
-		user.setAvatar(User.DEFAULT_AVATAR);
+	public void addUser(AdminUser user, Long[] roles) {
+		user.setCreateTime(new Date());
+		user.setAvatar(AdminUser.DEFAULT_AVATAR);
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		this.save(user);
 		setUserRoles(user, roles);
 	}
 
-	private void setUserRoles(User user, Long[] roles) {
+	private void setUserRoles(AdminUser user, Long[] roles) {
 		for (Long roleId : roles) {
 			UserRole ur = new UserRole();
 			ur.setUserId(user.getUserId());
@@ -103,7 +91,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Override
 	@Transactional
-	public void updateUser(User user, Long[] roles) {
+	public void updateUser(AdminUser user, Long[] roles) {
 		user.setPassword(null);
 		user.setUsername(null);
 		user.setModifyTime(new Date());
@@ -118,17 +106,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	@Transactional
 	public void deleteUsers(String userIds) {
 		List<String> list = Arrays.asList(userIds.split(","));
-		this.batchDelete(list, "userId", User.class);
-
+		this.batchDelete(list, "userId", AdminUser.class);
 		this.userRoleService.deleteUserRolesByUserId(userIds);
 	}
 
 	@Override
 	@Transactional
 	public void updateLoginTime(String userName) {
-		Example example = new Example(User.class);
+		Example example = new Example(AdminUser.class);
 		example.createCriteria().andCondition("lower(username)=", userName.toLowerCase());
-		User user = new User();
+		AdminUser user = new AdminUser();
 		user.setLastLoginTime(new Date());
 		this.userMapper.updateByExampleSelective(user, example);
 	}
@@ -136,8 +123,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	@Override
 	@Transactional
 	public void updatePassword(String password) {
-		User user = (User) SecurityUtils.getSubject().getPrincipal();
-		Example example = new Example(User.class);
+		AdminUser user = (AdminUser) SecurityUtils.getSubject().getPrincipal();
+		Example example = new Example(AdminUser.class);
 		example.createCriteria().andCondition("username=", user.getUsername());
 		String newPassword = MD5Utils.encrypt(user.getUsername().toLowerCase(), password);
 		user.setPassword(newPassword);
@@ -145,34 +132,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	}
 
 	@Override
-	public UserWithRole findById(Long userId) {
-		List<UserWithRole> list = this.userMapper.findUserWithRole(userId);
-		List<Long> roleList = new ArrayList<>();
-		for (UserWithRole uwr : list) {
-			roleList.add(uwr.getRoleId());
-		}
-		if (list.size() == 0) {
-			return null;
-		}
-		UserWithRole userWithRole = list.get(0);
-		userWithRole.setRoleIds(roleList);
-		return userWithRole;
+	public AdminUser findUserProfile(AdminUser user) {
+		return this.userMapper.findAdminUserAndRoleName(user.getUserId());
 	}
 
 	@Override
-	public User findUserProfile(User user) {
-		return this.userMapper.findUserProfile(user);
-	}
-
-	@Override
-	@Transactional
-	public void updateUserProfile(User user) {
-
-		user.setUsername(null);
-		user.setPassword(null);
-		if (user.getDeptId() == null)
-			user.setDeptId(0L);
-		this.updateNotNull(user);
+	public AdminUserWithRole findAdminUserWithRole(Long userId) {
+		return userMapper.findAdminUserWithRole(userId);
 	}
 
 }

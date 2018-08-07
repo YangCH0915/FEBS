@@ -6,7 +6,8 @@ import cn.xry.common.domain.QueryRequest;
 import cn.xry.common.domain.ResponseBo;
 import cn.xry.common.util.FileUtils;
 import cn.xry.common.util.MD5Utils;
-import cn.xry.system.domain.User;
+import cn.xry.system.domain.AdminUser;
+import cn.xry.system.domain.AdminUserWithRole;
 import cn.xry.system.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,7 +33,7 @@ public class UserController extends BaseController {
 	@RequestMapping("user")
 	@RequiresPermissions("user:list")
 	public String index(Model model) {
-		User user = super.getCurrentUser();
+		AdminUser user = super.getCurrentUser();
 		model.addAttribute("user", user);
 		return "system/user/user";
 	}
@@ -43,7 +44,7 @@ public class UserController extends BaseController {
 		if (StringUtils.isNotBlank(oldusername) && username.equalsIgnoreCase(oldusername)) {
 			return true;
 		}
-		User result = this.userService.findByName(username);
+		AdminUser result = this.userService.findByName(username);
 		return result == null;
 	}
 
@@ -51,7 +52,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public ResponseBo getUser(Long userId) {
 		try {
-			User user = this.userService.findById(userId);
+			AdminUserWithRole user = this.userService.findAdminUserWithRole(userId);
 			return ResponseBo.ok(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,19 +63,19 @@ public class UserController extends BaseController {
 	@Log("获取用户信息")
 	@RequestMapping("user/list")
 	@ResponseBody
-	public Map<String, Object> userList(QueryRequest request, User user) {
+	public Map<String, Object> userList(QueryRequest request, AdminUser user) {
 		PageHelper.startPage(request.getPageNum(), request.getPageSize());
-		List<User> list = this.userService.findUser(user);
-		PageInfo<User> pageInfo = new PageInfo<>(list);
+		List<AdminUser> list = this.userService.findUser(user);
+		PageInfo<AdminUser> pageInfo = new PageInfo<>(list);
 		return getDataTable(pageInfo);
 	}
 
 	@RequestMapping("user/excel")
 	@ResponseBody
-	public ResponseBo userExcel(User user) {
+	public ResponseBo userExcel(AdminUser user) {
 		try {
-			List<User> list = this.userService.findUser(user);
-			return FileUtils.createExcelByPOIKit("用户表", list, User.class);
+			List<AdminUser> list = this.userService.findUser(user);
+			return FileUtils.createExcelByPOIKit("用户表", list, AdminUser.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBo.error("导出Excel失败，请联系网站管理员！");
@@ -83,10 +84,10 @@ public class UserController extends BaseController {
 
 	@RequestMapping("user/csv")
 	@ResponseBody
-	public ResponseBo userCsv(User user) {
+	public ResponseBo userCsv(AdminUser user) {
 		try {
-			List<User> list = this.userService.findUser(user);
-			return FileUtils.createCsv("用户表", list, User.class);
+			List<AdminUser> list = this.userService.findUser(user);
+			return FileUtils.createCsv("用户表", list, AdminUser.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBo.error("导出Csv失败，请联系网站管理员！");
@@ -95,13 +96,13 @@ public class UserController extends BaseController {
 
 	@RequestMapping("user/regist")
 	@ResponseBody
-	public ResponseBo regist(User user) {
+	public ResponseBo regist(AdminUser user) {
 		try {
-			User result = this.userService.findByName(user.getUsername());
+			AdminUser result = this.userService.findByName(user.getUsername());
 			if (result != null) {
 				return ResponseBo.warn("该用户名已被使用！");
 			}
-			this.userService.registUser(user);
+			this.userService.registerUser(user);
 			return ResponseBo.ok();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,12 +114,12 @@ public class UserController extends BaseController {
 	@RequiresPermissions("user:add")
 	@RequestMapping("user/add")
 	@ResponseBody
-	public ResponseBo addUser(User user, Long[] roles) {
+	public ResponseBo addUser(AdminUser user, Long[] roles) {
 		try {
 			if (ON.equalsIgnoreCase(user.getStatus()))
-				user.setStatus(User.STATUS_VALID);
+				user.setStatus(AdminUser.STATUS_VALID);
 			else
-				user.setStatus(User.STATUS_LOCK);
+				user.setStatus(AdminUser.STATUS_LOCK);
 			this.userService.addUser(user, roles);
 			return ResponseBo.ok("新增用户成功！");
 		} catch (Exception e) {
@@ -131,12 +132,12 @@ public class UserController extends BaseController {
 	@RequiresPermissions("user:update")
 	@RequestMapping("user/update")
 	@ResponseBody
-	public ResponseBo updateUser(User user, Long[] rolesSelect) {
+	public ResponseBo updateUser(AdminUser user, Long[] rolesSelect) {
 		try {
 			if (ON.equalsIgnoreCase(user.getStatus()))
-				user.setStatus(User.STATUS_VALID);
+				user.setStatus(AdminUser.STATUS_VALID);
 			else
-				user.setStatus(User.STATUS_LOCK);
+				user.setStatus(AdminUser.STATUS_LOCK);
 			this.userService.updateUser(user, rolesSelect);
 			return ResponseBo.ok("修改用户成功！");
 		} catch (Exception e) {
@@ -162,7 +163,7 @@ public class UserController extends BaseController {
 	@RequestMapping("user/checkPassword")
 	@ResponseBody
 	public boolean checkPassword(String password) {
-		User user = getCurrentUser();
+		AdminUser user = getCurrentUser();
 		String encrypt = MD5Utils.encrypt(user.getUsername().toLowerCase(), password);
 		return user.getPassword().equals(encrypt);
 	}
@@ -181,16 +182,8 @@ public class UserController extends BaseController {
 
 	@RequestMapping("user/profile")
 	public String profileIndex(Model model) {
-		User user = super.getCurrentUser();
+		AdminUser user = super.getCurrentUser();
 		user = this.userService.findUserProfile(user);
-		String ssex = user.getSsex();
-		if (User.SEX_MALE.equals(ssex)) {
-			user.setSsex("性别：男");
-		} else if (User.SEX_FEMALE.equals(ssex)) {
-			user.setSsex("性别：女");
-		} else {
-			user.setSsex("性别：保密");
-		}
 		model.addAttribute("user", user);
 		return "system/user/profile";
 	}
@@ -199,7 +192,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public ResponseBo getUserProfile(Long userId) {
 		try {
-			User user = new User();
+			AdminUser user = new AdminUser();
 			user.setUserId(userId);
 			return ResponseBo.ok(this.userService.findUserProfile(user));
 		} catch (Exception e) {
@@ -210,9 +203,9 @@ public class UserController extends BaseController {
 
 	@RequestMapping("user/updateUserProfile")
 	@ResponseBody
-	public ResponseBo updateUserProfile(User user) {
+	public ResponseBo updateUserProfile(AdminUser user) {
 		try {
-			this.userService.updateUserProfile(user);
+			this.userService.updateNotNull(user);
 			return ResponseBo.ok("更新个人信息成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -226,7 +219,7 @@ public class UserController extends BaseController {
 		try {
 			String[] img = imgName.split("/");
 			String realImgName = img[img.length-1];
-			User user = getCurrentUser();
+			AdminUser user = getCurrentUser();
 			user.setAvatar(realImgName);
 			this.userService.updateNotNull(user);
 			return ResponseBo.ok("更新头像成功！");

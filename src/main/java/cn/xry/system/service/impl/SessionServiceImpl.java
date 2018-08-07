@@ -1,7 +1,7 @@
 package cn.xry.system.service.impl;
 
 import cn.xry.common.util.AddressUtils;
-import cn.xry.system.domain.User;
+import cn.xry.system.domain.AdminUser;
 import cn.xry.system.domain.UserOnline;
 import cn.xry.system.service.SessionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,14 +36,14 @@ public class SessionServiceImpl implements SessionService {
 		Collection<Session> sessions = sessionDAO.getActiveSessions();
 		for (Session session : sessions) {
 			UserOnline userOnline = new UserOnline();
-			User user = new User();
+			AdminUser user = new AdminUser();
 			SimplePrincipalCollection principalCollection = new SimplePrincipalCollection();
 			if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) == null) {
 				continue;
 			} else {
 				principalCollection = (SimplePrincipalCollection) session
 						.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-				user = (User) principalCollection.getPrimaryPrincipal();
+				user = (AdminUser) principalCollection.getPrimaryPrincipal();
 				userOnline.setUsername(user.getUsername());
 				userOnline.setUserId(user.getUserId().toString());
 			}

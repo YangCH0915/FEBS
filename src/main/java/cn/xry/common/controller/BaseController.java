@@ -1,6 +1,6 @@
 package cn.xry.common.controller;
 
-import cn.xry.system.domain.User;
+import cn.xry.system.domain.AdminUser;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -23,8 +23,8 @@ public class BaseController {
 		return SecurityUtils.getSubject();
 	}
 
-	protected User getCurrentUser() {
-		return (User) getSubject().getPrincipal();
+	protected AdminUser getCurrentUser() {
+		return (AdminUser) getSubject().getPrincipal();
 	}
 
 	protected Session getSession() {

@@ -5,24 +5,24 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <result column="ROLE_ID" jdbcType="DECIMAL" property="roleId" />
-    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="role_id" jdbcType="DECIMAL" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   
   <select id="findUserRole" resultMap="roleMap">
-  	select r.* from t_role r 
-  	left join t_user_role ur on(r.role_id = ur.role_id)
-	left join t_user u on(u.user_id = ur.user_id) 
+  	select r.* from role r
+  	left join user_role ur on(r.role_id = ur.role_id)
+	left join admin_user u on(u.user_id = ur.user_id)
 	where u.username = #{userName}
   </select>
   
   <select id="findById" resultType="roleWithMenu">
   	select r.role_id roleId,r.role_name roleName,r.remark,
-  	rm.menu_id menuId from t_role r
-	left join t_role_menu rm on(r.role_id = rm.role_id)
+  	rm.menu_id menuId from role r
+	left join role_menu rm on(r.role_id = rm.role_id)
 	where r.role_id = #{roleId}
   </select>
   

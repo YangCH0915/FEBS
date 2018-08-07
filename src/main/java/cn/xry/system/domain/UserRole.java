@@ -4,15 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name = "t_user_role")
+@Table(name = "user_role")
 public class UserRole implements Serializable{
 	
 	private static final long serialVersionUID = -3166012934498268403L;
 
-	@Column(name = "USER_ID")
+	@Column(name = "user_id")
 	private Long userId;
 
-	@Column(name = "ROLE_ID")
+	@Column(name = "role_id")
 	private Long roleId;
 
 	/**

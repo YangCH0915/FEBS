@@ -70,6 +70,7 @@ function login() {
         },
         dataType: "json",
         success: function (r) {
+            console.log(r);
             if (r.code === 0) {
                 location.href = ctx + 'index';
             } else {

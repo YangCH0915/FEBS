@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "t_menu")
+@Table(name = "menu")
 public class Menu implements Serializable {
 
 	private static final long serialVersionUID = 7187628714679791771L;
@@ -19,41 +19,41 @@ public class Menu implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "JDBC")
-	@Column(name = "MENU_ID")
+	@Column(name = "menu_id")
 	@ExportConfig(value = "编号")
 	private Long menuId;
 
-	@Column(name = "PARENT_ID")
+	@Column(name = "parent_id")
 	private Long parentId;
 
-	@Column(name = "MENU_NAME")
+	@Column(name = "menu_name")
 	@ExportConfig(value = "名称")
 	private String menuName;
 
-	@Column(name = "URL")
+	@Column(name = "url")
 	@ExportConfig(value = "地址")
 	private String url;
 
-	@Column(name = "PERMS")
+	@Column(name = "perms")
 	@ExportConfig(value = "权限标识")
 	private String perms;
 
-	@Column(name = "ICON")
+	@Column(name = "icon")
 	@ExportConfig(value = "图标")
 	private String icon;
 
-	@Column(name = "TYPE")
+	@Column(name = "type")
 	@ExportConfig(value = "类型", convert = "s:0=菜单,1=按钮")
 	private String type;
 
-	@Column(name = "ORDER_NUM")
+	@Column(name = "order_num")
 	private Long orderNum;
 
-	@Column(name = "CREATE_TIME")
+	@Column(name = "create_time")
 	@ExportConfig(value = "创建时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
 	private Date createTime;
 
-	@Column(name = "MODIFY_TIME")
+	@Column(name = "modify_time")
 	private Date modifyTime;
 
 	/**

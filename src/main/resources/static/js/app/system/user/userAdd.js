@@ -6,8 +6,6 @@ var $roles = $userAddForm.find("input[name='roles']");
 $(function () {
     validateRule();
     initRole();
-    createDeptTree();
-
     $("input[name='status']").change(function () {
         var checked = $(this).is(":checked");
         var $status_label = $("#status");
@@ -17,7 +15,6 @@ $(function () {
 
     $("#user-add .btn-save").click(function () {
         var name = $(this).attr("name");
-        getDept();
         var validator = $userAddForm.validate();
         var flag = validator.form();
         if (flag) {
@@ -58,9 +55,7 @@ function closeModal() {
     $userAddForm.find("input[name='status']").prop("checked", true);
     $("#user-add-modal-title").html('新增用户');
     $("#status").html('可用');
-    $MB.resetJsTree("deptTree");
     $MB.closeAndRestModal("user-add");
-
 }
 
 function validateRule() {
@@ -135,35 +130,6 @@ function initRole() {
                 validator.element("input[name='roles']");
             }
         };
-
         $rolesSelect.multipleSelect(options);
     });
-}
-
-function createDeptTree() {
-    $.post(ctx + "dept/tree", {}, function (r) {
-        if (r.code === 0) {
-            var data = r.msg;
-            $('#deptTree').jstree({
-                "core": {
-                    'data': data.children,
-                    'multiple': false // 取消多选
-                },
-                "state": {
-                    "disabled": true
-                },
-                "checkbox": {
-                    "three_state": false // 取消选择父节点后选中所有子节点
-                },
-                "plugins": ["wholerow", "checkbox"]
-            });
-        } else {
-            $MB.n_danger(r.msg);
-        }
-    })
-}
-
-function getDept() {
-    var ref = $('#deptTree').jstree(true);
-    $("[name='deptId']").val(ref.get_selected()[0]);
 }

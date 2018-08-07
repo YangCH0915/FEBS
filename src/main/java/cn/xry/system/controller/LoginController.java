@@ -7,7 +7,7 @@ import cn.xry.common.domain.ResponseBo;
 import cn.xry.common.util.MD5Utils;
 import cn.xry.common.util.vcode.Captcha;
 import cn.xry.common.util.vcode.GifCaptcha;
-import cn.xry.system.domain.User;
+import cn.xry.system.domain.AdminUser;
 import cn.xry.system.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.*;
@@ -52,6 +52,7 @@ public class LoginController extends BaseController {
         }
         // 密码 MD5 加密
         password = MD5Utils.encrypt(username.toLowerCase(), password);
+
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         try {
             super.login(token);
@@ -99,7 +100,7 @@ public class LoginController extends BaseController {
     @RequestMapping("/index")
     public String index(Model model) {
         // 登录成后，即可通过 Subject 获取登录的用户信息
-        User user = super.getCurrentUser();
+        AdminUser user = super.getCurrentUser();
         model.addAttribute("user", user);
         return "index";
     }
