@@ -17,26 +17,29 @@ $(function () {
             field: 'userId',
             visible: false
         }, {
+            field: 'cname',
+            title: '中文名称'
+        }, {
             field: 'username',
             title: '用户名'
-        }, {
-            field: 'dividePer',
-            title: '分成比例'
-        }, {
-            field: 'lastLoginTime',
-            title: '最近登录时间'
-        }, {
-            field: 'mobile',
-            title: '手机'
-        }, {
-            field: 'description',
-            title: '备注'
         }, {
             field:'roleName',
             title:'角色'
         }, {
-            field: 'crateTime',
+            field: 'mobile',
+            title: '手机'
+        }, {
+            field: 'dividePer',
+            title: '分成比例'
+        }, {
+            field: 'createTime',
             title: '创建时间'
+        }, {
+            field: 'lastLoginTime',
+            title: '最近登录时间'
+        }, {
+            field: 'description',
+            title: '备注'
         }, {
             field: 'status',
             title: '状态',

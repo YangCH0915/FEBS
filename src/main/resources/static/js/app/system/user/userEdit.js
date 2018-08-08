@@ -13,16 +13,20 @@ function updateUser() {
     $.post(ctx + "user/getUser", {"userId": userId}, function (r) {
         if (r.code === 0) {
             var $form = $('#user-add');
-            var $deptTree = $('#deptTree');
             $form.modal();
             var user = r.msg;
+            console.log("查询的用户："+user);
             $form.find(".user_password").hide();
             $("#user-add-modal-title").html('修改用户');
+            $form.find("input[name='cname']").val(user.cname);
             $form.find("input[name='username']").val(user.username).attr("readonly", true);
-            $form.find("input[name='oldusername']").val(user.username);
             $form.find("input[name='userId']").val(user.userId);
-            $form.find("input[name='email']").val(user.email);
             $form.find("input[name='mobile']").val(user.mobile);
+            $form.find("input[name='description']").val(user.description);
+            $form.find("input[name='dividePer']").val(user.dividePer);
+            $form.find("input[name='accountName']").val(user.accountName);
+            $form.find("input[name='bankAccount']").val(user.bankAccount);
+            $form.find("input[name='openingBank']").val(user.openingBank);
             var roleArr = [];
             for (var i = 0; i < user.roleIds.length; i++) {
                 roleArr.push(user.roleIds[i]);
@@ -37,9 +41,6 @@ function updateUser() {
                 $status.prop("checked", false);
                 $status.parent().next().html('禁用');
             }
-            $("input:radio[value='" + user.ssex + "']").prop("checked", true);
-            $deptTree.jstree().open_all();
-            $deptTree.jstree('select_node', user.deptId, true);
             $("#user-add-button").attr("name", "update");
         } else {
             $MB.n_danger(r.msg);

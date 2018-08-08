@@ -11,7 +11,7 @@ public interface AdminUserMapper extends MyMapper<AdminUser> {
 
     List<AdminUser> findAdminUser(@Param("au") AdminUser user);
 
-    AdminUserWithRole findAdminUserWithRole(Long userId);
+    List<AdminUserWithRole> findAdminUserWithRole(Long userId);
 
     AdminUser findAdminUserAndRoleName(Long userId);
 }

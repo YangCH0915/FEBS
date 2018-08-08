@@ -73,9 +73,6 @@ function validateRule() {
                     data: {
                         username: function () {
                             return $("input[name='username']").val().trim();
-                        },
-                        oldusername: function () {
-                            return $("input[name='oldusername']").val().trim();
                         }
                     }
                 }
@@ -84,12 +81,6 @@ function validateRule() {
                 email: true
             },
             roles: {
-                required: true
-            },
-            mobile: {
-                checkPhone: true
-            },
-            ssex: {
                 required: true
             }
         },
@@ -106,9 +97,7 @@ function validateRule() {
                 minlength: icon + "用户名长度3到10个字符",
                 remote: icon + "用户名已经存在"
             },
-            roles: icon + "请选择用户角色",
-            email: icon + "邮箱格式不正确",
-            ssex: icon + "请选择性别"
+            roles: icon + "请选择用户角色"
         }
     });
 }

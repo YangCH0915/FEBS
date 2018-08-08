@@ -15,7 +15,7 @@ public class AdminUserWithRole extends AdminUser{
 	}
 
 	public void setRoleId(Long roleId) {
-		roleId = roleId;
+		this.roleId = roleId;
 	}
 
 	public List<Long> getRoleIds() {
@@ -25,5 +25,4 @@ public class AdminUserWithRole extends AdminUser{
 	public void setRoleIds(List<Long> roleIds) {
 		this.roleIds = roleIds;
 	}
-	
 }

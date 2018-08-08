@@ -3,6 +3,7 @@
 <mapper namespace="cn.xry.system.dao.AdminUserMapper">
     <resultMap id="BaseResultMap" type="cn.xry.system.domain.AdminUser">
         <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="cname" jdbcType="VARCHAR" property="cname"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
@@ -18,14 +19,18 @@
         <result column="status" jdbcType="CHAR" property="status"/>
     </resultMap>
 
-
     <select id="findAdminUser" resultMap="BaseResultMap">
         select
-        u.user_id,u.username,u.mobile,u.divide_per,u.create_time,
+        u.user_id,u.cname, u.username,u.mobile,u.divide_per,u.create_time,
         u.modify_time,u.last_login_time,u.account_name,u.bank_account,
-        u.opening_bank,u.avatar,u.description,u.status
+        u.opening_bank,u.avatar,u.description,u.status,
+        group_concat(r.role_name) AS roleName
         from
         admin_user u
+        left join
+        user_role ur on u.user_id = ur.user_id
+        left join
+        role r on r.role_id = ur.role_id
         where 1=1
         <if test="au.userId != null and au.userId != ''">
             AND u.user_id = #{au.userId}
@@ -36,12 +41,12 @@
         <if test="au.status != null and au.status != ''">
             AND u.status = #{au.status}
         </if>
-        order by u.user_id
+        group by u.user_id
     </select>
 
     <select id="findAdminUserWithRole" resultType="cn.xry.system.domain.AdminUserWithRole">
     select
-        u.user_id userId,u.username,u.divide_per,u.create_time,
+        u.user_id,u.cname, u.username,u.mobile,u.divide_per,u.create_time,
 		u.modify_time,u.last_login_time,u.account_name,u.bank_account,
 		u.opening_bank,u.avatar,u.description,u.status,ur.role_id roleId
     from
@@ -54,7 +59,7 @@
 
     <select id="findAdminUserAndRoleName" resultMap="BaseResultMap">
 	SELECT
-		u.user_id,u.username,u.mobile,u.divide_per,u.create_time,
+		u.user_id,u.cname, u.username,u.mobile,u.divide_per,u.create_time,
 		u.modify_time,u.last_login_time,u.account_name,u.bank_account,
 		u.opening_bank,u.avatar,u.description,u.status,
 	    group_concat(r.role_name) AS roleName

@@ -10,11 +10,23 @@
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon">
+					               	 中文名：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="cname" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
 					               	 用户名：
 					            </span>
                                 <div class="form-group">
+                                    <input type="text" name="userId" class="form-control" hidden>
                                     <input type="text" name="username" class="form-control">
-                                    <input type="text" hidden name="userId" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -73,7 +85,28 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 描述：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="description" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div id="channel">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="input-group">
+                                <span class="input-group-addon" style="justify-content: flex-start;margin-top: .5rem;">
+					               	结算信息：
+					             </span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-11">
                                 <div class="input-group">
@@ -89,11 +122,35 @@
                         <div class="row">
                             <div class="col-sm-11">
                                 <div class="input-group">
-                                <span class="input-group-addon" style="justify-content: flex-start;margin-top: .5rem;">
-					               	结算信息：
-					             </span>
+                                <span class="input-group-addon">
+					               	 账户名：
+					            </span>
                                     <div class="form-group">
-                                        <div id="accountInfo"></div>
+                                        <input type="text" name="accountName" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="input-group">
+                                <span class="input-group-addon">
+					               	 收款账号：
+					            </span>
+                                    <div class="form-group">
+                                        <input type="number" name="bankAccount" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="input-group">
+                                <span class="input-group-addon">
+					               	 开户行地址：
+					            </span>
+                                    <div class="form-group">
+                                        <input type="text" name="openingBank" class="form-control">
                                     </div>
                                 </div>
                             </div>

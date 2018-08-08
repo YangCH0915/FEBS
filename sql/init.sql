@@ -4,7 +4,8 @@
 DROP TABLE IF EXISTS `admin_user`;
 CREATE TABLE `admin_user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `username` varchar(50) NOT NULL COMMENT '用户名',
+  `cname` varchar(20) NOT NULL COMMENT '中文名',
+  `username` varchar(32) NOT NULL COMMENT '用户名',
   `password` varchar(128) NOT NULL COMMENT '密码',
   `mobile` varchar(20) DEFAULT NULL COMMENT '联系电话',
   `divide_per` float unsigned DEFAULT '1.00' COMMENT '分成比例',
@@ -21,7 +22,7 @@ CREATE TABLE `admin_user` (
   KEY `status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8;
 
-INSERT INTO `admin_user` VALUES ('1', 'admin', '42ee25d1e43e9f57119a00d0a39e5250', '18566209357',2.3, '2018-08-06 11:47:19', '2018-08-06 14:05:12','2018-08-06 17:29:32','宁夏', '6259384513455533222','浙江宁波招商银行', 'default.jpg',  '我是老板',  1);
+INSERT INTO `admin_user` VALUES ('1','管理员', 'admin', '1fedc5a36d03c185065dd2b323886aa5', '18566209357',2.3, '2018-08-06 11:47:19', '2018-08-06 14:05:12','2018-08-06 17:29:32','宁夏', '6259384513455533222','浙江宁波招商银行', 'default.jpg',  '我是老板',  1);
 
 
 -- ----------------------------

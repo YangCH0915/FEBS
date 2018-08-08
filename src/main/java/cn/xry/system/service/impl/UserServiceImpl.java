@@ -77,6 +77,7 @@ public class UserServiceImpl extends BaseService<AdminUser> implements UserServi
 		user.setAvatar(AdminUser.DEFAULT_AVATAR);
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		this.save(user);
+		System.out.println(user.toString());
 		setUserRoles(user, roles);
 	}
 
@@ -138,7 +139,16 @@ public class UserServiceImpl extends BaseService<AdminUser> implements UserServi
 
 	@Override
 	public AdminUserWithRole findAdminUserWithRole(Long userId) {
-		return userMapper.findAdminUserWithRole(userId);
+		List<Long> roleList = new ArrayList<>();
+		List<AdminUserWithRole> list = this.userMapper.findAdminUserWithRole(userId);
+		for (AdminUserWithRole uwr : list) {
+			roleList.add(uwr.getRoleId());
+		}
+		if (list.size() == 0) {
+			return null;
+		}
+		AdminUserWithRole userWithRole = list.get(0);
+		userWithRole.setRoleIds(roleList);
+		return userWithRole;
 	}
-
 }

@@ -1,9 +1,6 @@
 package cn.xry.system.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,8 +24,14 @@ public class AdminUser implements Serializable {
      * 用户ID
      */
     @Id
+    @GeneratedValue(generator = "JDBC")
     @Column(name = "user_id")
     private Long userId;
+
+    /**
+     * 中文名
+     */
+    private String cname;
 
     /**
      * 用户名
@@ -124,6 +127,15 @@ public class AdminUser implements Serializable {
      */
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname;
     }
 
     /**
@@ -372,6 +384,7 @@ public class AdminUser implements Serializable {
     public String toString() {
         return "AdminUser{" +
                 "userId=" + userId +
+                ", cname='" + cname + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", mobile='" + mobile + '\'' +
@@ -385,7 +398,7 @@ public class AdminUser implements Serializable {
                 ", avatar='" + avatar + '\'' +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
-                ", roleName=" + roleName +
+                ", roleName='" + roleName + '\'' +
                 '}';
     }
 }
