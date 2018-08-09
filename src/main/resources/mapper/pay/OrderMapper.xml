@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xry.pay.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="cn.xry.pay.domain.Order">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="mch_id" jdbcType="BIGINT" property="mchId" />
+    <result column="passageway_id" jdbcType="BIGINT" property="passagewayId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="callback_status" jdbcType="TINYINT" property="callbackStatus" />
+    <result column="user_ip" jdbcType="VARCHAR" property="userIp" />
+    <result column="body" jdbcType="VARCHAR" property="body" />
+    <result column="nonce_str" jdbcType="VARCHAR" property="nonceStr" />
+    <result column="attach" jdbcType="VARCHAR" property="attach" />
+    <result column="notifyUrl" jdbcType="VARCHAR" property="notifyurl" />
+    <result column="callbackUrl" jdbcType="VARCHAR" property="callbackurl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="limitPay" jdbcType="VARCHAR" property="limitpay" />
+    <result column="sceneInfo" jdbcType="VARCHAR" property="sceneinfo" />
+  </resultMap>
+</mapper>

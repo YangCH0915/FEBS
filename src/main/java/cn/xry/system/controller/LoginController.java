@@ -46,6 +46,7 @@ public class LoginController extends BaseController {
         }
         Session session = super.getSession();
         String sessionCode = (String) session.getAttribute("_code");
+        System.out.println("获取二维码："+sessionCode);
         session.removeAttribute("_code");
         if (!code.toLowerCase().equals(sessionCode)) {
             return ResponseBo.warn("验证码错误！");
@@ -81,6 +82,9 @@ public class LoginController extends BaseController {
             HttpSession session = request.getSession(true);
             session.removeAttribute("_code");
             session.setAttribute("_code", captcha.text().toLowerCase());
+
+            String sessionCode = (String) session.getAttribute("_code");
+            System.out.println("生成二维码："+sessionCode);
         } catch (Exception e) {
             e.printStackTrace();
         }

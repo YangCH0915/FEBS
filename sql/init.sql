@@ -205,6 +205,105 @@ INSERT INTO `dict` VALUES ('31', '1', '暂停', 'status', 't_job');
 INSERT INTO `dict` VALUES ('32', '0', '成功', 'status', 't_job_log');
 INSERT INTO `dict` VALUES ('33', '1', '失败', 'status', 't_job_log');
 
+
+/*
+ 支付管理，支付通道
+*/
+DROP TABLE IF EXISTS `passageway`;
+CREATE TABLE `passageway` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `pay_id` varchar (32) NOT NULL COMMENT '支付商户号ID',
+  `pay_key` varchar(50) NOT NULL COMMENT '支付秘钥，根据加密类型区分',
+  `public_key` varchar(50) NOT NULL COMMENT '支付秘钥，根据加密类型区分,RSA类型需要此秘钥解密',
+  `sign_type` varchar(32) NOT NULL COMMENT '字段名称',
+  `open_id` varchar(50) NOT NULL COMMENT '表名',
+  `app_id` varchar(32) NOT NULL COMMENT '表名',
+  `pay_type` varchar(32) NOT NULL COMMENT '支付类型',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `modify_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
+  `passageway_id` varchar (11) NOT NULL COMMENT '通道标识ID',
+  `passageway_name` varchar(100) NOT NULL COMMENT '通道名称',
+  PRIMARY KEY (`id`),
+  KEY `passagewayId` (`passageway_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+
+/*
+ 支付管理，支付订单
+*/
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `mch_id` bigint(20) NOT NULL COMMENT '商户ID',
+  `passageway_id` bigint(20) NOT NULL COMMENT '支付通道ID',
+  `user_id` bigint(20) NOT NULL COMMENT '渠道用户ID',
+  `order_no` varchar(50) NOT NULL COMMENT '商户订单号',
+  `trade_no` varchar(50) NOT NULL COMMENT '平台订单号',
+  `pay_type` varchar(32) NOT NULL COMMENT '支付类型',
+  `amount` int (11) NOT NULL COMMENT '金额，单位为分',
+  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态:0-已取消,1-未支付,2-已支付',
+  `product_id` varchar(32) DEFAULT NULL COMMENT '产品ID',
+  `callback_status` tinyint(3) unsigned zerofill DEFAULT '0' COMMENT '是否已同步渠道,0-3未同步或未成功,9-成功',
+  `user_ip` varchar(32) DEFAULT NULL COMMENT '用户IP',
+  `body` varchar(32) NOT NULL COMMENT '商品名称',
+  `nonce_str` varchar(32) NOT NULL COMMENT '随机字符串',
+  `attach` varchar(32) DEFAULT NULL COMMENT '拓展字段，异步通知数据原样返回',
+  `notifyUrl` varchar(32) NOT NULL COMMENT '异步通知地址',
+  `callbackUrl` varchar(32) DEFAULT NULL COMMENT '前端回调地址',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `limitPay` varchar(100) DEFAULT NULL COMMENT '是否限制使用信用卡',
+  `sceneInfo` varchar (256) DEFAULT NULL COMMENT '场景信息',
+  PRIMARY KEY (`id`),
+  KEY `userId`(`user_id`),
+  KEY `mchId`(`mch_id`),
+  KEY `passagewayId` (`passageway_id`),
+  KEY `px_status` (`status`),
+  KEY `orderNo`(`order_no`),
+  KEY `tradeNo`(`trade_no`),
+  KEY `payType`(`pay_type`),
+  KEY `callbackStatus`(`callback_status`),
+  KEY `createTime`(`create_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+
+
+/*
+支付管理，分配给渠道的商户号
+ */
+ DROP TABLE IF EXISTS `mch_info`;
+CREATE TABLE `mch_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `mch_id` bigint(20) NOT NULL COMMENT '商户号ID',
+  `mch_key` varchar(50) NOT NULL COMMENT '商户秘钥',
+  `create_time` varchar(50) NOT NULL COMMENT '创建时间',
+  `modify_time` varchar(50) NOT NULL COMMENT '修改时间',
+  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
+  `user_id` varchar(50) NOT NULL COMMENT '表名',
+  `passageway_id` varchar(32) NOT NULL COMMENT '表名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- ----------------------------
 -- Table structure for t_job
 -- ----------------------------
