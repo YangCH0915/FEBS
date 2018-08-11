@@ -36,19 +36,12 @@ public class Passageway implements Serializable {
     private String publicKey;
 
     /**
-     * 字段名称
+     * 签名类型
      */
     @Column(name = "sign_type")
     private String signType;
-
     /**
-     * 表名
-     */
-    @Column(name = "open_id")
-    private String openId;
-
-    /**
-     * 表名
+     * 产品ID
      */
     @Column(name = "app_id")
     private String appId;
@@ -161,54 +154,36 @@ public class Passageway implements Serializable {
     }
 
     /**
-     * 获取字段名称
+     * 获取签名类型
      *
-     * @return sign_type - 字段名称
+     * @return sign_type - 签名类型
      */
     public String getSignType() {
         return signType;
     }
 
     /**
-     * 设置字段名称
+     * 设置签名类型
      *
-     * @param signType 字段名称
+     * @param signType 签名类型
      */
     public void setSignType(String signType) {
         this.signType = signType == null ? null : signType.trim();
     }
 
     /**
-     * 获取表名
+     * 获取产品ID
      *
-     * @return open_id - 表名
-     */
-    public String getOpenId() {
-        return openId;
-    }
-
-    /**
-     * 设置表名
-     *
-     * @param openId 表名
-     */
-    public void setOpenId(String openId) {
-        this.openId = openId == null ? null : openId.trim();
-    }
-
-    /**
-     * 获取表名
-     *
-     * @return app_id - 表名
+     * @return app_id - 产品ID
      */
     public String getAppId() {
         return appId;
     }
 
     /**
-     * 设置表名
+     * 设置产品ID
      *
-     * @param appId 表名
+     * @param appId 产品ID
      */
     public void setAppId(String appId) {
         this.appId = appId == null ? null : appId.trim();
@@ -330,7 +305,6 @@ public class Passageway implements Serializable {
                 ", payKey='" + payKey + '\'' +
                 ", publicKey='" + publicKey + '\'' +
                 ", signType='" + signType + '\'' +
-                ", openId='" + openId + '\'' +
                 ", appId='" + appId + '\'' +
                 ", payType='" + payType + '\'' +
                 ", createTime=" + createTime +

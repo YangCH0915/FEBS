@@ -34,9 +34,9 @@ public class PassagewayController extends BaseController {
 
     @RequestMapping("passageway/list")
     @ResponseBody
-    public Map<String, Object> userList(QueryRequest request) {
+    public Map<String, Object> list(QueryRequest request) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
-        List<Passageway> list = this.passagewayService.selectAll();
+        List<Passageway> list = this.passagewayService.findAll();
         PageInfo<Passageway> pageInfo = new PageInfo<>(list);
         return getDataTable(pageInfo);
     }
@@ -44,9 +44,9 @@ public class PassagewayController extends BaseController {
     @RequiresPermissions("passageway:add")
     @RequestMapping("passageway/add")
     @ResponseBody
-    public ResponseBo addUser(Passageway passageway) {
+    public ResponseBo add(Passageway passageway) {
         try {
-            this.passagewayService.save(passageway);
+            this.passagewayService.add(passageway);
             return ResponseBo.ok("新增通道成功！");
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,9 +57,9 @@ public class PassagewayController extends BaseController {
     @RequiresPermissions("passageway:update")
     @RequestMapping("passageway/update")
     @ResponseBody
-    public ResponseBo updateUser(Passageway passageway) {
+    public ResponseBo update(Passageway passageway) {
         try {
-            this.passagewayService.updateNotNull(passageway);
+            this.passagewayService.update(passageway);
             return ResponseBo.ok("修改通道成功！");
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,13 +70,25 @@ public class PassagewayController extends BaseController {
     @RequiresPermissions("passageway:delete")
     @RequestMapping("passageway/delete")
     @ResponseBody
-    public ResponseBo deleteUsers(String ids) {
+    public ResponseBo delete(String ids) {
         try {
             this.passagewayService.deletePassageways(ids);
             return ResponseBo.ok("删除通道成功！");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseBo.error("删除通道失败，请联系网站管理员！");
+        }
+    }
+
+    @RequestMapping("passageway/getPassageway")
+    @ResponseBody
+    public ResponseBo getPassageway(long id) {
+        try {
+            Passageway passageways = this.passagewayService.findPassagewayById(id);
+            return ResponseBo.ok(passageways);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBo.error("获取通道失败");
         }
     }
 }

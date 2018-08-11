@@ -10,7 +10,6 @@
     <result column="pay_key" jdbcType="VARCHAR" property="payKey" />
     <result column="public_key" jdbcType="VARCHAR" property="publicKey" />
     <result column="sign_type" jdbcType="VARCHAR" property="signType" />
-    <result column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="app_id" jdbcType="VARCHAR" property="appId" />
     <result column="pay_type" jdbcType="VARCHAR" property="payType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

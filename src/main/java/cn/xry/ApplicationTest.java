@@ -39,7 +39,6 @@ public class ApplicationTest {
         passageway.setAppId("10025636523");
         passageway.setCreateTime(new Date());
         passageway.setPassagewayId("12345612");
-        passageway.setOpenId("asdfasdfa1");
         passageway.setPassagewayName("测试1");
         passageway.setPayId("123456L");
         passageway.setPayKey("safjhkasdfasdf");
@@ -58,7 +57,6 @@ public class ApplicationTest {
         passageway.setAppId("10025636524");
         passageway.setCreateTime(new Date());
         passageway.setPassagewayId("123456134");
-        passageway.setOpenId("W3234");
         passageway.setPassagewayName("测试1");
         passageway.setPayId("654321");
         passageway.setPayKey("safjhkasdfasdf");

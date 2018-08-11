@@ -1,19 +1,19 @@
-<div class="modal fade" id="user-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+<div class="modal fade" id="passageway-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title pull-left" id="user-add-modal-title">新增用户</h3>
+                <h3 class="modal-title pull-left" id="add-modal-title">新增通道</h3>
             </div>
             <div class="modal-body">
-                <form id="user-add-form">
+                <form id="add-form">
                     <div class="row">
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon">
-					               	 中文名：
+					               	 通道名称：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="cname" class="form-control">
+                                    <input type="text" name="passagewayName" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -22,36 +22,12 @@
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon">
-					               	 用户名：
+					               	 支付商户号：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="userId" class="form-control" hidden>
-                                    <input type="text" name="username" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row user_password">
-                        <div class="col-sm-11">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-					               	 密码：
-					            </span>
-                                <div class="form-group">
-                                    <input type="text" name="password" value="123456" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-					               	 手机：
-					            </span>
-                                <div class="form-group">
-                                    <input type="text" name="mobile" class="form-control">
+                                    <input type="text" name="passagewayId" class="form-control" hidden>
+                                    <input type="text" name="id" class="form-control" hidden>
+                                    <input type="text" name="payId" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -60,11 +36,58 @@
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon">
-					               	 角色：
-					             </span>
+					               	 支付秘钥：
+					            </span>
                                 <div class="form-group">
-                                    <select multiple="multiple" name="rolesSelect"></select>
-                                    <input name="roles" hidden/>
+                                    <input type="text" name="payKey" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 产品ID：
+					            </span>
+                                <div class="form-group">
+                                    <input type="number" name="appId" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 支付类型：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="payType" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 签名类型：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="signType" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 平台秘钥：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="publicKey" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -75,91 +98,18 @@
                                 <span class="input-group-addon">
 					               	状态：
 					             </span>
-                                <div class="toggle-switch">
+                                <div class="toggle-switch" style="margin-left: 30px">
                                     <input type="checkbox" name="status" checked class="toggle-switch__checkbox">
                                     <i class="toggle-switch__helper"></i>
                                 </div>
-                                <span class="input-group-addon" id="status" style="margin-left: 10px;">
-	                                 	可用
-						             </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-					               	 描述：
-					            </span>
-                                <div class="form-group">
-                                    <input type="text" name="description" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="channel">
-                        <div class="row">
-                            <div class="col-sm-11">
-                                <div class="input-group">
-                                <span class="input-group-addon" style="justify-content: flex-start;margin-top: .5rem;">
-					               	结算信息：
-					             </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-11">
-                                <div class="input-group">
-                                <span class="input-group-addon">
-					               	 分成比例：
-					            </span>
-                                    <div class="form-group">
-                                        <input type="number" name="dividePer" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-11">
-                                <div class="input-group">
-                                <span class="input-group-addon">
-					               	 账户名：
-					            </span>
-                                    <div class="form-group">
-                                        <input type="text" name="accountName" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-11">
-                                <div class="input-group">
-                                <span class="input-group-addon">
-					               	 收款账号：
-					            </span>
-                                    <div class="form-group">
-                                        <input type="number" name="bankAccount" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-11">
-                                <div class="input-group">
-                                <span class="input-group-addon">
-					               	 开户行地址：
-					            </span>
-                                    <div class="form-group">
-                                        <input type="text" name="openingBank" class="form-control">
-                                    </div>
-                                </div>
+                                <span class="input-group-addon" id="status" style="margin-left: 10px;">可用</span>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-save" id="user-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-save" id="save-button" name="save">保存</button>
                 <button type="button" class="btn btn-secondary btn-close">关闭</button>
                 <button class="btn-hide"></button>
             </div>
