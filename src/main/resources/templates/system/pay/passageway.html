@@ -1,17 +1,23 @@
 <div class="card" xmlns:shiro="http://www.w3.org/1999/xhtml">
     <div data-th-include="system/pay/passagewayAdd"></div>
+    <div data-th-include="system/pay/distribution"></div>
+
     <div class="card-block">
         <div class="table-responsive">
             <div id="data-table_wrapper" class="dataTables_wrapper">
                 <div class="dataTables_buttons hidden-sm-down actions">
-                    <span class="actions__item zmdi zmdi-search" onclick="search()" title="搜索" />
-                    <span class="actions__item zmdi zmdi-refresh-alt" onclick="refresh()" title="刷新" />
-                    <div class="dropdown actions__item" shiro:hasAnyPermissions="passageway:add,passageway:delete,passageway:update">
+                    <span class="actions__item zmdi zmdi-search" onclick="search()" title="搜索"/>
+                    <span class="actions__item zmdi zmdi-refresh-alt" onclick="refresh()" title="刷新"/>
+                    <div class="dropdown actions__item"
+                         shiro:hasAnyPermissions="passageway:add,passageway:delete,passageway:update">
                         <i data-toggle="dropdown" class="zmdi zmdi-more-vert"></i>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#passageway-add" shiro:hasPermission="passageway:add">新增通道</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="updatePassageway()" shiro:hasPermission="passageway:update">修改通道</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="deletePassageway()" shiro:hasPermission="passageway:delete">删除通道</a>
+                            <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal"
+                               data-target="#passageway-add" shiro:hasPermission="passageway:add">新增通道</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="updatePassageway()"
+                               shiro:hasPermission="passageway:update">修改通道</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="deletePassageway()"
+                               shiro:hasPermission="passageway:delete">删除通道</a>
                         </div>
                     </div>
                 </div>
@@ -51,7 +57,8 @@
                         </div>
                     </form>
                 </div>
-                <table id="passagewayTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+                <table id="passagewayTable" data-mobile-responsive="true"
+                       class="mb-bootstrap-table text-nowrap"></table>
             </div>
         </div>
     </div>

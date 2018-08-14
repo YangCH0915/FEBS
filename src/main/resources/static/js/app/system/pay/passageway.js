@@ -32,12 +32,12 @@ $(function () {
         }, {
             field: 'payType',
             title: '支付类型'
-        },{
+        }, {
             field: 'signType',
             title: '签名类型'
         }, {
-            field:'publicKey',
-            title:'平台公钥'
+            field: 'publicKey',
+            title: '平台公钥'
         }, {
             field: 'appId',
             title: 'appId'
@@ -54,8 +54,12 @@ $(function () {
                 if (value == true) return '<span class="badge badge-success">有效</span>';
                 if (value == false) return '<span class="badge badge-warning">锁定</span>';
             }
-        }
-        ]
+        }, {
+            title: '操作',
+            formatter: function (value, row, index) {
+                return "<a href='#' data-toggle='modal' onclick='distribution(\"" + row.id + "\",\"" + row.status + "\")'>分配</a>";
+            }
+        }]
     };
     $MB.initTable('passagewayTable', settings);
 });
@@ -94,5 +98,18 @@ function deletePassageway() {
                 $MB.n_danger(r.msg);
             }
         });
+    });
+}
+
+function distribution(id, status) {
+    if (status === "false") {
+        $MB.n_warning("该通道已停用！！");
+        return;
+    }
+
+    $('#distribution').modal('show');
+
+    $("#distribution").on("hidden.bs.modal", function () {
+        $(this).removeData("bs.modal");
     });
 }

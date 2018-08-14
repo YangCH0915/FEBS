@@ -91,4 +91,12 @@ public class PassagewayController extends BaseController {
             return ResponseBo.error("获取通道失败");
         }
     }
+
+    @RequestMapping("passageway/distribution")
+    public String distribution(Model model,String passagewayId) {
+        AdminUser user = super.getCurrentUser();
+        model.addAttribute("user", user);
+        System.out.println("分配通道");
+        return "system/pay/distribution";
+    }
 }

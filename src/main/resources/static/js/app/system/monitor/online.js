@@ -31,7 +31,6 @@ $(function () {
             }
         }]
     };
-
     $MB.initTable('onlineTable', settings);
 });
 

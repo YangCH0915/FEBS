@@ -1,0 +1,70 @@
+<div class="modal fade" id="distribution" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+     aria-hidden="true" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="add-modal-title">分配通道</h3>
+            </div>
+            <div class="modal-body">
+                <form id="add-form">
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 通道名称：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="passagewayName" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 选择渠道：
+					            </span>
+                                <div class="form-group checkbox">
+                                    <input type="checkbox" name="passagewayId1"><span>测试一</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 结算费率：
+					            </span>
+                                <div class="form-group">
+                                    <input type="text" name="payKey" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group" style="margin-top:10px;">
+                                <span class="input-group-addon">
+					               	状态：
+					             </span>
+                                <div class="toggle-switch" style="margin-left: 30px">
+                                    <input type="checkbox" name="status" checked class="toggle-switch__checkbox">
+                                    <i class="toggle-switch__helper"></i>
+                                </div>
+                                <span class="input-group-addon" id="status" style="margin-left: 10px;">可用</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save" id="save-button" name="save">保存</button>
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">关闭</button>
+                <button class="btn-hide"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-src="@{js/app/system/pay/distribution.js}"></script>
