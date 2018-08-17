@@ -1,53 +1,56 @@
 var validator;
-var $userAddForm = $("#add-form");
+var $distributionAddForm = $("#distribution-form");
+var $status = $("#distribution-form").find("input[name='status']");
 
 $(function () {
-    $("input[name='status']").change(function () {
+    $status.change(function () {
         var checked = $(this).is(":checked");
-        var $status_label = $("#status");
-        if (checked) $status_label.html('可用');
-        else $status_label.html('禁用');
-    });
-
-    $("#passageway-add .btn-save").click(function () {
-        var name = $(this).attr("name");
-        var validator = $userAddForm.validate();
-        var flag = validator.form();
-        if (flag) {
-            if (name === "save") {
-                $.post(ctx + "passageway/add", $userAddForm.fx_serialize(), function (r) {
-                    if (r.code === 0) {
-                        closeModal();
-                        $MB.n_success(r.msg);
-                        $MB.refreshTable("passagewayTable");
-                    } else $MB.n_danger(r.msg);
-                });
-            }
-            if (name === "update") {
-                $.post(ctx + "passageway/update", $userAddForm.fx_serialize(), function (r) {
-                    if (r.code === 0) {
-                        closeModal();
-                        $MB.n_success(r.msg);
-                        $MB.refreshTable("passagewayTable");
-                    } else $MB.n_danger(r.msg);
-                });
-            }
+        var $status_label = $("#distribution-form #status");
+        if (checked) {
+            $status_label.html('可用');
+        } else {
+            $status_label.html('禁用');
         }
     });
 
-    $("#passageway-add .btn-close").click(function () {
-        closeModal();
+    $("#distribution .btn-save").click(function () {
+        var validator = $distributionAddForm.validate();
+        var flag = validator.form();
+        if (flag) {
+            var userIds = "";
+            $('#distribution-form').find("input[name='userId']").each(function () {
+                if ($(this).is(":checked")) {
+                    userIds += $(this).val()+",";
+                }
+            });
+            var passageId = $('#passagewayId').text();
+            var status = $status.is(":checked");
+            $.post(ctx + "passageway/distribution",
+                {"userIds": userIds, "passageId": passageId, "status": status,"settlementRate":$('#settlementRate').val()},
+                function (r) {
+                    if (r.code === 0) {
+                        $MB.n_success(r.msg);
+                        $('#distribution').modal('hide');
+                    } else $MB.n_danger(r.msg);
+                });
+        }
     });
-
 });
 
-function closeModal() {
-    $("#save-button").attr("name", "save");
-    // validator.resetForm();
-    // $rolesSelect.multipleSelect('setSelects', []);
-    // $rolesSelect.multipleSelect("refresh");
-    $userAddForm.find("input[name='status']").prop("checked", true);
-    $("#add-modal-title").html('新增通道');
-    $("#status").html('可用');
-    $MB.closeAndRestModal("passageway-add");
+
+function findNacs(passagewayId) {
+    $.post(ctx + "user/getNacs", {"passagewayId": passagewayId}, function (r) {
+        if (r.code === 0) {
+            var users = r.msg;
+            if (users.length > 0) {
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+                    var htmlStr = '<input type="checkbox" name="userId" value="' + user.userId + '">' + user.cname;
+                    $("#channels").append(htmlStr + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                }
+            } else {
+                $("#channels").append("<span>没有可以选择的渠道</span>");
+            }
+        } else $MB.n_danger(r.msg);
+    });
 }

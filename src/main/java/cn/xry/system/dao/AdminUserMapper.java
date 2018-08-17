@@ -14,4 +14,11 @@ public interface AdminUserMapper extends MyMapper<AdminUser> {
     List<AdminUserWithRole> findAdminUserWithRole(Long userId);
 
     AdminUser findAdminUserAndRoleName(Long userId);
+
+    /**
+     * 通过通道Id查询匹配出未分配的渠道列表
+     * @param passagewayId
+     * @return
+     */
+    List<AdminUser> findUserByPassagewayId(String passagewayId);
 }

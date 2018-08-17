@@ -20,8 +20,7 @@ public class MD5Utils {
 				HASH_ITERATIONS).toHex();
 	}
 	public static void main(String[] args) {
-		
-		System.out.println(MD5Utils.encrypt("tester", "123456"));
+		System.out.println(MD5Utils.encrypt("123456", "123456"));
 	}
 
 }

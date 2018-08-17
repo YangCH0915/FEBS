@@ -27,4 +27,11 @@ public interface UserService extends IService<AdminUser> {
 	AdminUser findUserProfile(AdminUser user);
 
 	AdminUserWithRole findAdminUserWithRole(Long userId);
+
+	/**
+	 * 通过通道Id查询匹配出未分配的渠道列表
+	 * @param passagewayId
+	 * @return
+	 */
+	List<AdminUser> findUserByPassagewayId(String passagewayId);
 }

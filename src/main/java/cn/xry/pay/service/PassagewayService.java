@@ -16,4 +16,6 @@ public interface PassagewayService extends IService<Passageway> {
     void deletePassageways(String ids);
 
     Passageway findPassagewayById(long id);
+
+    int distribution(String passageId,String userIds,float settlementRate,boolean status);
 }

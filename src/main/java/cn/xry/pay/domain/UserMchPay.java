@@ -1,10 +1,9 @@
 package cn.xry.pay.domain;
 
 import javax.persistence.*;
-import java.util.Date;
 
-@Table(name = "mch_info")
-public class MchInfo {
+@Table(name = "user_mch_pay")
+public class UserMchPay {
     /**
      * 主键ID
      */
@@ -21,20 +20,20 @@ public class MchInfo {
     /**
      * 商户秘钥
      */
-    @Column(name = "mch_key")
-    private String mchKey;
+    @Column(name = "user_id")
+    private Long userId;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_time")
-    private Date createTime;
+    @Column(name = "passageway_id")
+    private String passagewayId;
 
     /**
-     * 修改时间
+     * 费率
      */
-    @Column(name = "modify_time")
-    private Date modifyTime;
+    @Column(name = "settlement_rate")
+    private Float settlementRate;
 
     /**
      * 启用状态:0-关闭,1-开启
@@ -80,55 +79,55 @@ public class MchInfo {
     /**
      * 获取商户秘钥
      *
-     * @return mch_key - 商户秘钥
+     * @return user_id - 商户秘钥
      */
-    public String getMchKey() {
-        return mchKey;
+    public Long getUserId() {
+        return userId;
     }
 
     /**
      * 设置商户秘钥
      *
-     * @param mchKey 商户秘钥
+     * @param userId 商户秘钥
      */
-    public void setMchKey(String mchKey) {
-        this.mchKey = mchKey == null ? null : mchKey.trim();
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     /**
      * 获取创建时间
      *
-     * @return create_time - 创建时间
+     * @return passageway_id - 创建时间
      */
-    public Date getCreateTime() {
-        return createTime;
+    public String getPassagewayId() {
+        return passagewayId;
     }
 
     /**
      * 设置创建时间
      *
-     * @param createTime 创建时间
+     * @param passagewayId 创建时间
      */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPassagewayId(String passagewayId) {
+        this.passagewayId = passagewayId == null ? null : passagewayId.trim();
     }
 
     /**
-     * 获取修改时间
+     * 获取费率
      *
-     * @return modify_time - 修改时间
+     * @return settlement_rate - 费率
      */
-    public Date getModifyTime() {
-        return modifyTime;
+    public Float getSettlementRate() {
+        return settlementRate;
     }
 
     /**
-     * 设置修改时间
+     * 设置费率
      *
-     * @param modifyTime 修改时间
+     * @param settlementRate 费率
      */
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setSettlementRate(Float settlementRate) {
+        this.settlementRate = settlementRate;
     }
 
     /**

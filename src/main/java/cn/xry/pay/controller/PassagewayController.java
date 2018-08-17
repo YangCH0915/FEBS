@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -93,10 +94,12 @@ public class PassagewayController extends BaseController {
     }
 
     @RequestMapping("passageway/distribution")
-    public String distribution(Model model,String passagewayId) {
-        AdminUser user = super.getCurrentUser();
-        model.addAttribute("user", user);
-        System.out.println("分配通道");
-        return "system/pay/distribution";
+    @ResponseBody
+    public ResponseBo distribution(HttpServletRequest request,boolean status) {
+        String userIds = request.getParameter("userIds");
+        String passageId = request.getParameter("passageId");
+        float settlementRate = Float.valueOf(request.getParameter("settlementRate"));
+        passagewayService.distribution(passageId,userIds,settlementRate,status);
+        return ResponseBo.ok();
     }
 }

@@ -7,6 +7,6 @@ public class NumberUtils {
 
    public static String getId(){
        long timeMillis = System.currentTimeMillis();
-       return String.valueOf(timeMillis/1000);
+       return String.valueOf(timeMillis);
    }
 }

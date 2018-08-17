@@ -269,33 +269,39 @@ CREATE TABLE `order` (
 /*
 支付管理，分配给渠道的商户号
  */
- DROP TABLE IF EXISTS `mch_info`;
+DROP TABLE IF EXISTS `mch_info`;
 CREATE TABLE `mch_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `mch_id` bigint(20) NOT NULL COMMENT '商户号ID',
+  `mch_id` varchar(20) NOT NULL COMMENT '商户号ID',
   `mch_key` varchar(50) NOT NULL COMMENT '商户秘钥',
-  `create_time` varchar(50) NOT NULL COMMENT '创建时间',
-  `modify_time` varchar(50) NOT NULL COMMENT '修改时间',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `modify_time` datetime DEFAULT NULL COMMENT '修改时间',
   `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
-  `user_id` varchar(50) NOT NULL COMMENT '表名',
-  `passageway_id` varchar(32) NOT NULL COMMENT '表名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
+insert into mch_info values (1,'5646546','asdf65465465',now(),null,true);
+insert into mch_info values (2,'10023654895','asdf65465465',now(),null,true);
+insert into mch_info values (3,'10023548415','asdf65465465',now(),null,true);
 
+/**
+关联商户号，支付通道，渠道ID中间表
+ */
+DROP TABLE IF EXISTS `user_mch_pay`;
+CREATE TABLE `user_mch_pay` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `mch_id` varchar (20) NOT NULL COMMENT '商户号ID',
+  `user_id` bigint(50) NOT NULL COMMENT '商户秘钥',
+  `passageway_id` varchar(50) NOT NULL COMMENT '创建时间',
+  `settlement_rate` float NOT NULL default 1 COMMENT '费率',
+  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
-
-
-
-
-
-
-
-
-
-
-
-
+insert into user_mch_pay values (1,'5646546',1,'15338987',1,true);
+insert into user_mch_pay values (2,'5646546',1,'15338988',1,true);
+insert into user_mch_pay values (3,'10023654895',171,'15338987',1,true);
+insert into user_mch_pay values (4,'10023654895',171,'15338988',1,true);
 
 
 

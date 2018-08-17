@@ -7,8 +7,6 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                passagewayName: $userTableForm.find("input[name='passagewayName']").val().trim(),
-                username: $userTableForm.find("input[name='payId']").val().trim(),
                 status: $userTableForm.find("select[name='status']").val()
             };
         },
@@ -18,47 +16,26 @@ $(function () {
             field: 'id',
             visible: false
         }, {
-            field: 'passagewayName',
-            title: '通道名称'
+            field: 'cname',
+            title: '渠道名称'
         }, {
-            field: 'passagewayId',
-            title: '通道标识'
+            field: 'mchId',
+            title: '商户号'
         }, {
-            field: 'payId',
-            title: '支付商户号'
+            field: 'mchKey',
+            title: '商户秘钥'
         }, {
-            field: 'payKey',
-            title: '支付秘钥'
-        }, {
-            field: 'payType',
-            title: '支付类型'
-        }, {
-            field: 'signType',
-            title: '签名类型'
-        }, {
-            field: 'publicKey',
-            title: '平台公钥'
-        }, {
-            field: 'appId',
-            title: 'appId'
-        }, {
-            field: 'createTime',
-            title: '创建时间'
-        }, {
-            field: 'modifyTime',
-            title: '修改时间'
+            title: '操作',
+            formatter: function (value, row, index) {
+                return "<a href='#' data-toggle='modal' " +
+                    "onclick='distribution(\"" + row.passagewayId + "\",\"" + row.status + "\",\"" + row.passagewayName + "\")'></a>";
+            }
         }, {
             field: 'status',
             title: '状态',
             formatter: function (value, row, index) {
                 if (value == true) return '<span class="badge badge-success">有效</span>';
                 if (value == false) return '<span class="badge badge-warning">锁定</span>';
-            }
-        }, {
-            title: '操作',
-            formatter: function (value, row, index) {
-                return "<a href='#' data-toggle='modal' " +
-                    "onclick='distribution(\"" + row.passagewayId + "\",\"" + row.status + "\",\"" + row.passagewayName + "\")'>分配</a>";
             }
         }]
     };

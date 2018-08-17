@@ -6,7 +6,7 @@
                 <h3 class="modal-title pull-left" id="add-modal-title">分配通道</h3>
             </div>
             <div class="modal-body">
-                <form id="add-form">
+                <form id="distribution-form">
                     <div class="row">
                         <div class="col-sm-11">
                             <div class="input-group">
@@ -14,7 +14,19 @@
 					               	 通道名称：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="passagewayName" class="form-control">
+                                   <span id="passagewayName"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+					               	 通道标识：
+					            </span>
+                                <div class="form-group">
+                                    <span id="passagewayId"></span>
                                 </div>
                             </div>
                         </div>
@@ -25,8 +37,7 @@
                                 <span class="input-group-addon">
 					               	 选择渠道：
 					            </span>
-                                <div class="form-group checkbox">
-                                    <input type="checkbox" name="passagewayId1"><span>测试一</span>
+                                <div class="form-group checkbox" id="channels">
                                 </div>
                             </div>
                         </div>
@@ -38,7 +49,7 @@
 					               	 结算费率：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="payKey" class="form-control">
+                                    <input type="number" name="settlementRate" id="settlementRate" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -49,11 +60,11 @@
                                 <span class="input-group-addon">
 					               	状态：
 					             </span>
-                                <div class="toggle-switch" style="margin-left: 30px">
+                                <div class="toggle-switch" style="margin-left: 24px">
                                     <input type="checkbox" name="status" checked class="toggle-switch__checkbox">
                                     <i class="toggle-switch__helper"></i>
                                 </div>
-                                <span class="input-group-addon" id="status" style="margin-left: 10px;">可用</span>
+                                <span class="input-group-addon" id="status" style="margin-left: 8px;">可用</span>
                             </div>
                         </div>
                     </div>

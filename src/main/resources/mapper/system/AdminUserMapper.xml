@@ -73,4 +73,16 @@
 		u .username
   </select>
 
+    <select id="findUserByPassagewayId" resultMap="BaseResultMap">
+	SELECT
+		u.user_id,u.cname, u.username
+	FROM
+		admin_user u
+	LEFT JOIN user_role ur ON u.user_id = ur.user_id
+	LEFT JOIN role r ON r.role_id = ur.role_id
+	WHERE r.role_id=3 AND u.user_id NOT IN (select ump.user_id from user_mch_pay ump where passageway_id = #{passagewayId})
+	GROUP BY
+		u .username
+  </select>
+
 </mapper>

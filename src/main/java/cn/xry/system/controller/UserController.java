@@ -228,4 +228,21 @@ public class UserController extends BaseController {
 			return ResponseBo.error("更新头像失败，请联系网站管理员！");
 		}
 	}
+
+    /**
+     * 查询该通道下未分配的渠道ID
+     * @param passagewayId
+     * @return
+     */
+	@RequestMapping("user/getNacs")
+	@ResponseBody
+	public ResponseBo findNoAssignedChannelSpecified(String passagewayId) {
+		try {
+            List<AdminUser> adminUsers = userService.findUserByPassagewayId(passagewayId);
+            return ResponseBo.ok(adminUsers);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBo.error("获取头像失败");
+		}
+	}
 }

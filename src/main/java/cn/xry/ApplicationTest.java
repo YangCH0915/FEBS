@@ -2,6 +2,7 @@ package cn.xry;
 
 import cn.xry.pay.domain.Passageway;
 import cn.xry.pay.service.PassagewayService;
+import cn.xry.system.domain.AdminUser;
 import cn.xry.system.domain.AdminUserWithRole;
 import cn.xry.system.service.MenuService;
 import cn.xry.system.service.UserService;
@@ -76,8 +77,9 @@ public class ApplicationTest {
 
     @Test
     public void select(){
-        List<Passageway> passageways = passagewayService.selectAll();
-        System.out.println("查询结果："+passageways.toString());
+//        List<Passageway> passageways = passagewayService.selectAll();
+        List<AdminUser> userByPassagewayId = userService.findUserByPassagewayId("15338987");
+        System.out.println("查询结果："+userByPassagewayId.toString());
     }
 
 }

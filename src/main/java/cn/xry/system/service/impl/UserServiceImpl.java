@@ -151,4 +151,9 @@ public class UserServiceImpl extends BaseService<AdminUser> implements UserServi
 		userWithRole.setRoleIds(roleList);
 		return userWithRole;
 	}
+
+	@Override
+	public List<AdminUser> findUserByPassagewayId(String passagewayId) {
+		return userMapper.findUserByPassagewayId(passagewayId);
+	}
 }
