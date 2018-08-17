@@ -27,8 +27,8 @@ $(function () {
         }, {
             title: '操作',
             formatter: function (value, row, index) {
-                return "<a href='#' data-toggle='modal' " +
-                    "onclick='distribution(\"" + row.passagewayId + "\",\"" + row.status + "\",\"" + row.passagewayName + "\")'></a>";
+                return "<span>"+row.passagewayName+"</span>" +
+                        "<a href='#'onclick='distribution(\"" + row.passagewayId + "\",\"" + row.status + "\")'></a>";
             }
         }, {
             field: 'status',
@@ -39,6 +39,7 @@ $(function () {
             }
         }]
     };
+
     $MB.initTable('passagewayTable', settings);
 });
 
