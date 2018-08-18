@@ -116,10 +116,6 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public ResponseBo addUser(AdminUser user, Long[] roles) {
 		try {
-			if (ON.equalsIgnoreCase(user.getStatus()))
-				user.setStatus(AdminUser.STATUS_VALID);
-			else
-				user.setStatus(AdminUser.STATUS_LOCK);
 			this.userService.addUser(user, roles);
 			return ResponseBo.ok("新增用户成功！");
 		} catch (Exception e) {
@@ -134,10 +130,6 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public ResponseBo updateUser(AdminUser user, Long[] rolesSelect) {
 		try {
-			if (ON.equalsIgnoreCase(user.getStatus()))
-				user.setStatus(AdminUser.STATUS_VALID);
-			else
-				user.setStatus(AdminUser.STATUS_LOCK);
 			this.userService.updateUser(user, rolesSelect);
 			return ResponseBo.ok("修改用户成功！");
 		} catch (Exception e) {

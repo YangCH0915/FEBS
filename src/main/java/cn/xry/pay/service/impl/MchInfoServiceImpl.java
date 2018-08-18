@@ -6,6 +6,7 @@ import cn.xry.common.util.NumberUtils;
 import cn.xry.pay.dao.MchInfoMapper;
 import cn.xry.pay.dao.UserMchPayMapper;
 import cn.xry.pay.domain.MchInfo;
+import cn.xry.pay.dto.MchInfoRelation;
 import cn.xry.pay.service.MchInfoService;
 import cn.xry.system.domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,16 @@ public class MchInfoServiceImpl extends BaseService<MchInfo> implements MchInfoS
         return id;
     }
 
+    @Override
+    public List<MchInfoRelation> findMchInfoRelation() {
+        return mchInfoMapper.findMchInfoRelation();
+    }
+
+    @Override
+    public MchInfoRelation findMchInfoRelationByMchID(String mchId) {
+        return mchInfoMapper.findMchInfoRelationByMchID(mchId);
+    }
+
     private void insertMchInfo(String mchId,long userId){
         MchInfo mchInfo = new MchInfo();
         mchInfo.setMchId(mchId);
@@ -49,8 +60,5 @@ public class MchInfoServiceImpl extends BaseService<MchInfo> implements MchInfoS
         mchInfoMapper.insert(mchInfo);
     }
 
-    @Override
-    public MchInfo findMchInfoByUserId() {
-        return null;
-    }
+
 }

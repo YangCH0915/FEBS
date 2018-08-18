@@ -1,5 +1,7 @@
 package cn.xry.pay.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,12 +29,14 @@ public class MchInfo {
     /**
      * 创建时间
      */
+    @JSONField (format="yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     @Column(name = "modify_time")
     private Date modifyTime;
 
@@ -147,5 +151,17 @@ public class MchInfo {
      */
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "MchInfo{" +
+                "id=" + id +
+                ", mchId='" + mchId + '\'' +
+                ", mchKey='" + mchKey + '\'' +
+                ", createTime=" + createTime +
+                ", modifyTime=" + modifyTime +
+                ", status=" + status +
+                '}';
     }
 }

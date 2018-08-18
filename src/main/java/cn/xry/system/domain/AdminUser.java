@@ -12,7 +12,7 @@ public class AdminUser implements Serializable {
     /**
      * 账户状态
      */
-    public static final String STATUS_VALID = "1";
+    public static final boolean STATUS_VALID = true;
 
     public static final String STATUS_LOCK = "0";
 
@@ -103,7 +103,7 @@ public class AdminUser implements Serializable {
     /**
      * 状态 0锁定 1有效
      */
-    private String status;
+    private Boolean status;
 
     /**
      * 角色ID
@@ -359,7 +359,7 @@ public class AdminUser implements Serializable {
      *
      * @return status - 状态 0锁定 1有效
      */
-    public String getStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
@@ -368,8 +368,8 @@ public class AdminUser implements Serializable {
      *
      * @param status 状态 0锁定 1有效
      */
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getRoleName() {

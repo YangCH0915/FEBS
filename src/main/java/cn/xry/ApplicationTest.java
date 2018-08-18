@@ -1,11 +1,13 @@
 package cn.xry;
 
 import cn.xry.pay.domain.Passageway;
+import cn.xry.pay.dto.MchInfoRelation;
+import cn.xry.pay.service.MchInfoService;
 import cn.xry.pay.service.PassagewayService;
 import cn.xry.system.domain.AdminUser;
-import cn.xry.system.domain.AdminUserWithRole;
 import cn.xry.system.service.MenuService;
 import cn.xry.system.service.UserService;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,13 @@ public class ApplicationTest {
     @Autowired
     private PassagewayService passagewayService;
 
+    @Autowired
+    private MchInfoService mchInfoService;
+
     @Test
     public void test() {
-        AdminUserWithRole user = userService.findAdminUserWithRole(1L);
-        System.out.println(user);
+        List<MchInfoRelation> mchInfoRelation = mchInfoService.findMchInfoRelation();
+        System.out.println(JSONObject.toJSON(mchInfoRelation));
     }
 
     @Test

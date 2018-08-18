@@ -39,7 +39,6 @@ $(function () {
             }
         }]
     };
-
     $MB.initTable('passagewayTable', settings);
 });
 

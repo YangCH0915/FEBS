@@ -17,7 +17,7 @@ CREATE TABLE `admin_user` (
   `opening_bank` varchar (50) DEFAULT NULL COMMENT '开户银行地址',
   `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
   `description` varchar(100) DEFAULT NULL COMMENT '描述',
-  `status` char(1) NOT NULL COMMENT '状态 0锁定 1有效',
+  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
   PRIMARY KEY (`user_id`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8;

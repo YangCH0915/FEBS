@@ -16,7 +16,7 @@
         <result column="opening_bank" jdbcType="VARCHAR" property="openingBank"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
-        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="status" jdbcType="BIT" property="status"/>
     </resultMap>
 
     <select id="findAdminUser" resultMap="BaseResultMap">

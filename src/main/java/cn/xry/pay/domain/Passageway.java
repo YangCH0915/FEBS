@@ -1,5 +1,7 @@
 package cn.xry.pay.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -55,12 +57,14 @@ public class Passageway implements Serializable {
     /**
      * 创建时间
      */
+    @JSONField (format="yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     @Column(name = "modify_time")
     private Date modifyTime;
 
