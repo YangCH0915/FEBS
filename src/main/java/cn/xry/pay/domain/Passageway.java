@@ -2,10 +2,7 @@ package cn.xry.pay.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -84,6 +81,18 @@ public class Passageway implements Serializable {
      */
     @Column(name = "passageway_name")
     private String passagewayName;
+
+    /**
+     * 标识分配给渠道的使用状态，通过use_mch_pay查询得到
+     */
+    @Transient
+    private Boolean open;
+
+    /**
+     * 标识分配给渠道的费率，通过use_mch_pay查询得到
+     */
+    @Transient
+    private Float settlementRate;
 
     /**
      * 获取主键ID
@@ -301,6 +310,22 @@ public class Passageway implements Serializable {
         this.passagewayName = passagewayName == null ? null : passagewayName.trim();
     }
 
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
+    public Float getSettlementRate() {
+        return settlementRate;
+    }
+
+    public void setSettlementRate(Float settlementRate) {
+        this.settlementRate = settlementRate;
+    }
+
     @Override
     public String toString() {
         return "Passageway{" +
@@ -316,6 +341,8 @@ public class Passageway implements Serializable {
                 ", status=" + status +
                 ", passagewayId='" + passagewayId + '\'' +
                 ", passagewayName='" + passagewayName + '\'' +
+                ", open=" + open +
+                ", settlementRate=" + settlementRate +
                 '}';
     }
 }

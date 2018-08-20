@@ -34,6 +34,14 @@
         <result column="status" jdbcType="BIT" property="status"/>
     </resultMap>
 
+    <resultMap id="userMchPays" type="cn.xry.pay.domain.UserMchPay">
+        <result column="mch_id" jdbcType="VARCHAR" property="mchId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="passageway_id" jdbcType="VARCHAR" property="passagewayId"/>
+        <result column="settlement_rate" jdbcType="REAL" property="settlementRate"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+    </resultMap>
+
     <resultMap id="mchInfoRelation" type="cn.xry.pay.dto.MchInfoRelation">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="mch_id" jdbcType="VARCHAR" property="mchId"/>
@@ -42,11 +50,17 @@
         <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
         <result column="status" jdbcType="BIT" property="status"/>
         <association property="channel" resultMap="adminUser"/>
+        <association property="userMchPays" resultMap="userMchPays"/>
         <collection property="passageways" resultMap="passageway"/>
     </resultMap>
 
     <select id="findMchInfoRelation" resultMap="mchInfoRelation">
-        select * from
+        select
+        mch.id,mch.mch_id,mch.mch_key,mch.create_time,mch.modify_time,mch.status,
+        u.cname,u.user_id,u.username,u.status,
+        p.*,
+        ump.*
+        from
         mch_info mch
         left join
         user_mch_pay ump on mch.mch_id = ump.mch_id
@@ -55,13 +69,18 @@
         left join
         passageway p on ump.passageway_id = p.passageway_id
         group by
-        mch.mch_id,
-        u.cname,
+        mch.id,
+        ump.passageway_id,
         p.passageway_id
     </select>
 
     <select id="findMchInfoRelationByMchID" resultMap="mchInfoRelation">
-    select * from
+    select
+     mch.id,mch.mch_id,mch.mch_key,mch.create_time,mch.modify_time,mch.status,
+     u.cname,u.user_id,u.username,u.status,
+     p.*,
+     ump.*
+     from
     mch_info mch
     left join
     user_mch_pay ump on mch.mch_id = ump.mch_id
@@ -73,7 +92,7 @@
       mch.mch_id = #{mchId}
     group by
     mch.mch_id,
-    u.cname,
+    ump.passageway_id,
     p.passageway_id
   </select>
 </mapper>

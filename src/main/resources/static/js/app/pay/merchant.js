@@ -1,13 +1,15 @@
 $(function () {
-    var $userTableForm = $(".passageway-table-form");
+    var $mchTableForm = $(".mch-table-form");
     var settings = {
-        url: ctx + "passageway/list",
+        url: ctx + "mchInfo/list",
         pageSize: 10,
         queryParams: function (params) {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                status: $userTableForm.find("select[name='status']").val()
+                mchId:$mchTableForm.find("#mchId").val(),
+                cname:$mchTableForm.find("#cname").val(),
+                status: $mchTableForm.find("select[name='status']").val()
             };
         },
         columns: [{
@@ -16,7 +18,7 @@ $(function () {
             field: 'id',
             visible: false
         }, {
-            field: 'cname',
+            field: 'channel.cname',
             title: '渠道名称'
         }, {
             field: 'mchId',
@@ -25,10 +27,26 @@ $(function () {
             field: 'mchKey',
             title: '商户秘钥'
         }, {
-            title: '操作',
+            title: '分配的通道',
             formatter: function (value, row, index) {
-                return "<span>"+row.passagewayName+"</span>" +
-                        "<a href='#'onclick='distribution(\"" + row.passagewayId + "\",\"" + row.status + "\")'></a>";
+                var passageways = row.passageways;
+                if(passageways.length > 0){
+                    var passHtml = "";
+                    for(var i=0;i<passageways.length;i++){
+                        var p = passageways[i];
+                        var open = '锁定';
+                        var statusColor = 'red';
+                        if(p.open){
+                            open = "正常";
+                            statusColor = 'blue';
+                        }
+                        passHtml += "<span>"+p.passagewayName+"&nbsp;("+p.payType +")"+
+                            "&nbsp;&nbsp;&nbsp;&nbsp;费率:"+p.settlementRate+"</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                            "<a href='#' style='color: "+statusColor+"' onclick='distribution(\"" + p.passagewayId + "\",\"" + p.open + "\")'>"+open+"</a>&nbsp;&nbsp;&nbsp;&nbsp;"+
+                            "<a href='#'onclick='distribution(\"" + p.passagewayId + "\",\"" + p.open + "\")'>解除</a><br>";
+                    }
+                    return passHtml;
+                }
             }
         }, {
             field: 'status',
@@ -37,18 +55,19 @@ $(function () {
                 if (value == true) return '<span class="badge badge-success">有效</span>';
                 if (value == false) return '<span class="badge badge-warning">锁定</span>';
             }
-        }]
+        }
+        ]
     };
-    $MB.initTable('passagewayTable', settings);
+    $MB.initTable('mchTable', settings);
 });
 
 function search() {
-    $MB.refreshTable('passagewayTable');
+    $MB.refreshTable('mchTable');
 }
 
 function refresh() {
     $(".passageway-table-form")[0].reset();
-    $MB.refreshTable('passagewayTable');
+    $MB.refreshTable('mchTable');
 }
 
 function deletePassageway() {

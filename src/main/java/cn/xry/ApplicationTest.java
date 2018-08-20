@@ -35,7 +35,7 @@ public class ApplicationTest {
 
     @Test
     public void test() {
-        List<MchInfoRelation> mchInfoRelation = mchInfoService.findMchInfoRelation();
+        MchInfoRelation mchInfoRelation = mchInfoService.findMchInfoRelationByMchID("1534420274108");
         System.out.println(JSONObject.toJSON(mchInfoRelation));
     }
 

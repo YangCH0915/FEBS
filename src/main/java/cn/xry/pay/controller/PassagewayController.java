@@ -30,7 +30,7 @@ public class PassagewayController extends BaseController {
     public String index(Model model) {
         AdminUser user = super.getCurrentUser();
         model.addAttribute("user", user);
-        return "system/pay/passageway";
+        return "pay/passageway";
     }
 
     @RequestMapping("passageway/list")

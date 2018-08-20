@@ -6,6 +6,8 @@ import cn.xry.common.util.NumberUtils;
 import cn.xry.pay.dao.MchInfoMapper;
 import cn.xry.pay.dao.UserMchPayMapper;
 import cn.xry.pay.domain.MchInfo;
+import cn.xry.pay.domain.Passageway;
+import cn.xry.pay.domain.UserMchPay;
 import cn.xry.pay.dto.MchInfoRelation;
 import cn.xry.pay.service.MchInfoService;
 import cn.xry.system.domain.Role;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,29 +34,54 @@ public class MchInfoServiceImpl extends BaseService<MchInfo> implements MchInfoS
     public String createMchId(Long userId) {
         String id = NumberUtils.getId();
         Example example = new Example(Role.class);
-        example.createCriteria().andCondition("mch_id=",id);
+        example.createCriteria().andCondition("mch_id=", id);
         List<MchInfo> mchInfos = mchInfoMapper.selectByExample(example);
-        if(mchInfos == null){
+        if (mchInfos == null) {
             id = NumberUtils.getId();
         }
-        insertMchInfo(id,userId);
+        insertMchInfo(id, userId);
         return id;
     }
 
     @Override
     public List<MchInfoRelation> findMchInfoRelation() {
-        return mchInfoMapper.findMchInfoRelation();
+        List<MchInfoRelation> mchInfoRelations = new ArrayList<>();
+        List<MchInfoRelation> mchInfoRelation = mchInfoMapper.findMchInfoRelation();
+        for (MchInfoRelation m : mchInfoRelation) {
+            mchInfoRelations.add(matching(m));
+        }
+        return mchInfoRelations;
     }
 
     @Override
     public MchInfoRelation findMchInfoRelationByMchID(String mchId) {
-        return mchInfoMapper.findMchInfoRelationByMchID(mchId);
+        MchInfoRelation m = mchInfoMapper.findMchInfoRelationByMchID(mchId);
+        return matching(m);
     }
 
-    private void insertMchInfo(String mchId,long userId){
+    private MchInfoRelation matching(MchInfoRelation m){
+        List<UserMchPay> userMchPay = m.getUserMchPays();
+        List<Passageway> passageways = m.getPassageways();
+        for (UserMchPay ump : userMchPay) {
+            for (Passageway p : passageways) {
+                if (ump.getPassagewayId().equals(p.getPassagewayId())) {
+                    if (p.getStatus()) {
+                        p.setOpen(ump.getStatus());
+                    } else {
+                        p.setOpen(p.getStatus());
+                    }
+                    p.setSettlementRate(ump.getSettlementRate());
+                }
+            }
+        }
+        m.setUserMchPays(null);
+        return m;
+    }
+
+    private void insertMchInfo(String mchId, long userId) {
         MchInfo mchInfo = new MchInfo();
         mchInfo.setMchId(mchId);
-        String mchKey = MD5Utils.encrypt(userId+"",mchId);
+        String mchKey = MD5Utils.encrypt(userId + "", mchId);
         mchInfo.setMchKey(mchKey);
         mchInfo.setStatus(true);
         mchInfo.setCreateTime(new Date());
