@@ -2,15 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.xry.pay.dao.MchInfoMapper">
     <resultMap id="BaseResultMap" type="cn.xry.pay.domain.MchInfo">
-        <!--
-          WARNING - @mbg.generated
-        -->
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="mch_id" jdbcType="VARCHAR" property="mchId"/>
         <result column="mch_key" jdbcType="VARCHAR" property="mchKey"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
-        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="open" jdbcType="BIT" property="open"/>
     </resultMap>
 
     <resultMap id="passageway" type="cn.xry.pay.domain.Passageway">
@@ -22,7 +19,7 @@
         <result column="pay_type" jdbcType="VARCHAR" property="payType"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
-        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="state" jdbcType="BIT" property="state"/>
         <result column="passageway_id" jdbcType="VARCHAR" property="passagewayId"/>
         <result column="passageway_name" jdbcType="VARCHAR" property="passagewayName"/>
     </resultMap>
@@ -39,7 +36,7 @@
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="passageway_id" jdbcType="VARCHAR" property="passagewayId"/>
         <result column="settlement_rate" jdbcType="REAL" property="settlementRate"/>
-        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="valid" jdbcType="BIT" property="valid"/>
     </resultMap>
 
     <resultMap id="mchInfoRelation" type="cn.xry.pay.dto.MchInfoRelation">
@@ -48,7 +45,7 @@
         <result column="mch_key" jdbcType="VARCHAR" property="mchKey"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
-        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="open" jdbcType="BIT" property="open"/>
         <association property="channel" resultMap="adminUser"/>
         <association property="userMchPays" resultMap="userMchPays"/>
         <collection property="passageways" resultMap="passageway"/>
@@ -56,10 +53,10 @@
 
     <select id="findMchInfoRelation" resultMap="mchInfoRelation">
         select
-        mch.id,mch.mch_id,mch.mch_key,mch.create_time,mch.modify_time,mch.status,
+        mch.id,mch.mch_id,mch.mch_key,mch.create_time,mch.modify_time,mch.open,
         u.cname,u.user_id,u.username,u.status,
-        p.*,
-        ump.*
+        p.id,p.pay_id,p.pay_key,p.public_key,p.sign_type,p.app_id,p.pay_type,p.passageway_id,p.passageway_name,p.state,
+        ump.mch_id,ump.user_id,ump.passageway_id,ump.settlement_rate,ump.valid
         from
         mch_info mch
         left join
@@ -71,28 +68,32 @@
         group by
         mch.id,
         ump.passageway_id,
-        p.passageway_id
+        ump.valid,
+        p.passageway_id,
+        p.state
     </select>
 
     <select id="findMchInfoRelationByMchID" resultMap="mchInfoRelation">
     select
-     mch.id,mch.mch_id,mch.mch_key,mch.create_time,mch.modify_time,mch.status,
-     u.cname,u.user_id,u.username,u.status,
-     p.*,
-     ump.*
-     from
-    mch_info mch
+      mch.id,mch.mch_id,mch.mch_key,mch.create_time,mch.modify_time,mch.open,
+      u.cname,u.user_id,u.username,u.status,
+      p.id,p.pay_id,p.pay_key,p.public_key,p.sign_type,p.app_id,p.pay_type,p.passageway_id,p.passageway_name,p.state,
+      ump.mch_id,ump.user_id,ump.passageway_id,ump.settlement_rate,ump.valid
+    from
+      mch_info mch
     left join
-    user_mch_pay ump on mch.mch_id = ump.mch_id
+      user_mch_pay ump on mch.mch_id = ump.mch_id
     left join
-    admin_user u on u.user_id = ump.user_id
+      admin_user u on u.user_id = ump.user_id
     left join
-    passageway p on ump.passageway_id = p.passageway_id
+      passageway p on ump.passageway_id = p.passageway_id
     where
       mch.mch_id = #{mchId}
     group by
-    mch.mch_id,
-    ump.passageway_id,
-    p.passageway_id
+      mch.id,
+      ump.passageway_id,
+      ump.valid,
+      p.passageway_id,
+      p.state
   </select>
 </mapper>

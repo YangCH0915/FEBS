@@ -31,8 +31,8 @@ function updatePassageway() {
             // }
             // $form.find("select[name='rolesSelect']").multipleSelect('setSelects', roleArr);
             // $form.find("input[name='roles']").val($form.find("select[name='rolesSelect']").val());
-            var $status = $form.find("input[name='status']");
-            if (passageway.status) {
+            var $status = $form.find("input[name='state']");
+            if (passageway.state) {
                 $status.prop("checked", true);
                 $status.parent().next().html('可用');
             } else {

@@ -68,7 +68,7 @@ public class Passageway implements Serializable {
     /**
      * 启用状态:0-关闭,1-开启
      */
-    private Boolean status;
+    private boolean state;
 
     /**
      * 通道标识ID
@@ -256,22 +256,12 @@ public class Passageway implements Serializable {
         this.modifyTime = modifyTime;
     }
 
-    /**
-     * 获取启用状态:0-关闭,1-开启
-     *
-     * @return status - 启用状态:0-关闭,1-开启
-     */
-    public Boolean getStatus() {
-        return status;
+    public boolean isState() {
+        return state;
     }
 
-    /**
-     * 设置启用状态:0-关闭,1-开启
-     *
-     * @param status 启用状态:0-关闭,1-开启
-     */
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setState(boolean state) {
+        this.state = state;
     }
 
     /**
@@ -338,7 +328,7 @@ public class Passageway implements Serializable {
                 ", payType='" + payType + '\'' +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +
-                ", status=" + status +
+                ", state=" + state +
                 ", passagewayId='" + passagewayId + '\'' +
                 ", passagewayName='" + passagewayName + '\'' +
                 ", open=" + open +

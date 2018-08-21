@@ -48,6 +48,9 @@ public class MchInfoServiceImpl extends BaseService<MchInfo> implements MchInfoS
         List<MchInfoRelation> mchInfoRelations = new ArrayList<>();
         List<MchInfoRelation> mchInfoRelation = mchInfoMapper.findMchInfoRelation();
         for (MchInfoRelation m : mchInfoRelation) {
+            if(m.getChannel() == null){
+                continue;
+            }
             mchInfoRelations.add(matching(m));
         }
         return mchInfoRelations;
@@ -59,16 +62,26 @@ public class MchInfoServiceImpl extends BaseService<MchInfo> implements MchInfoS
         return matching(m);
     }
 
-    private MchInfoRelation matching(MchInfoRelation m){
+    @Override
+    public int changeState(String mchId, String passagewayId, boolean valid) {
+        return userMchPayMapper.changeState(mchId, passagewayId, valid);
+    }
+
+    @Override
+    public int deleteMchInfo(String mchId, String passagewayId) {
+        return userMchPayMapper.deleteMchInfo(mchId, passagewayId);
+    }
+
+    private MchInfoRelation matching(MchInfoRelation m) {
         List<UserMchPay> userMchPay = m.getUserMchPays();
         List<Passageway> passageways = m.getPassageways();
-        for (UserMchPay ump : userMchPay) {
-            for (Passageway p : passageways) {
+        for (Passageway p : passageways) {
+            for (UserMchPay ump : userMchPay) {
                 if (ump.getPassagewayId().equals(p.getPassagewayId())) {
-                    if (p.getStatus()) {
-                        p.setOpen(ump.getStatus());
+                    if (p.isState()) {
+                        p.setOpen(ump.isValid());
                     } else {
-                        p.setOpen(p.getStatus());
+                        p.setOpen(p.isState());
                     }
                     p.setSettlementRate(ump.getSettlementRate());
                 }
@@ -83,10 +96,8 @@ public class MchInfoServiceImpl extends BaseService<MchInfo> implements MchInfoS
         mchInfo.setMchId(mchId);
         String mchKey = MD5Utils.encrypt(userId + "", mchId);
         mchInfo.setMchKey(mchKey);
-        mchInfo.setStatus(true);
+        mchInfo.setOpen(true);
         mchInfo.setCreateTime(new Date());
         mchInfoMapper.insert(mchInfo);
     }
-
-
 }

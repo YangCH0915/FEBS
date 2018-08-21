@@ -31,8 +31,8 @@ public class PassagewayServiceImpl extends BaseService<Passageway> implements Pa
 
     @Override
     public int add(Passageway passageway) {
-        if(passageway.getStatus() == null){
-            passageway.setStatus(false);
+        if(!passageway.isState()){
+            passageway.setState(false);
         }
         passageway.setPassagewayId(NumberUtils.getId());
         passageway.setCreateTime(new Date());
@@ -41,8 +41,8 @@ public class PassagewayServiceImpl extends BaseService<Passageway> implements Pa
 
     @Override
     public int update(Passageway passageway) {
-        if(passageway.getStatus() == null){
-            passageway.setStatus(false);
+        if(!passageway.isState()){
+            passageway.setState(false);
         }
         passageway.setModifyTime(new Date());
         return updateNotNull(passageway);
@@ -99,7 +99,7 @@ public class PassagewayServiceImpl extends BaseService<Passageway> implements Pa
         userMchPay.setMchId(mchId);
         userMchPay.setPassagewayId(passageId);
         userMchPay.setUserId(uId);
-        userMchPay.setStatus(status);
+        userMchPay.setValid(status);
         userMchPay.setSettlementRate(settlementRate);
         userMchPayMapper.insert(userMchPay);
     }

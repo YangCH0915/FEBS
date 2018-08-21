@@ -35,7 +35,7 @@ public class ApplicationTest {
 
     @Test
     public void test() {
-        MchInfoRelation mchInfoRelation = mchInfoService.findMchInfoRelationByMchID("1534420274108");
+        List<MchInfoRelation> mchInfoRelation = mchInfoService.findMchInfoRelation();
         System.out.println(JSONObject.toJSON(mchInfoRelation));
     }
 
@@ -50,7 +50,7 @@ public class ApplicationTest {
         passageway.setPayKey("safjhkasdfasdf");
         passageway.setPublicKey("");
         passageway.setSignType("MD5");
-        passageway.setStatus(true);
+        passageway.setState(true);
         passageway.setPayType("winxin_wap");
         int save = passagewayService.save(passageway);
         System.out.println("保存结果："+save);
@@ -68,7 +68,7 @@ public class ApplicationTest {
         passageway.setPayKey("safjhkasdfasdf");
         passageway.setPublicKey("");
         passageway.setSignType("MD5");
-        passageway.setStatus(true);
+        passageway.setState(true);
         passageway.setPayType("ali_wap");
         int save = passagewayService.updateNotNull(passageway);
         System.out.println("更新结果："+save);

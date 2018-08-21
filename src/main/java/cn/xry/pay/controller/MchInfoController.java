@@ -2,6 +2,7 @@ package cn.xry.pay.controller;
 
 import cn.xry.common.controller.BaseController;
 import cn.xry.common.domain.QueryRequest;
+import cn.xry.common.domain.ResponseBo;
 import cn.xry.pay.dto.MchInfoRelation;
 import cn.xry.pay.service.MchInfoService;
 import cn.xry.system.domain.AdminUser;
@@ -38,5 +39,27 @@ public class MchInfoController extends BaseController {
         List<MchInfoRelation> list = this.mchInfoService.findMchInfoRelation();
         PageInfo<MchInfoRelation> pageInfo = new PageInfo<>(list);
         return getDataTable(pageInfo);
+    }
+
+    @RequestMapping("mchInfo/changeState")
+    @ResponseBody
+    public ResponseBo changeState(String mchId,String passagewayId,boolean valid) {
+        int i = mchInfoService.changeState(mchId, passagewayId, valid);
+        if(i == 1){
+            return ResponseBo.ok("修改成功");
+        }else{
+            return ResponseBo.ok("修改失败");
+        }
+    }
+
+    @RequestMapping("mchInfo/delete")
+    @ResponseBody
+    public ResponseBo delete(String mchId,String passagewayId) {
+        int i = mchInfoService.deleteMchInfo(mchId, passagewayId);
+        if(i == 1){
+            return ResponseBo.ok("删除成功");
+        }else{
+            return ResponseBo.ok("删除失败");
+        }
     }
 }

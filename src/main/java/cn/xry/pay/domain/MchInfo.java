@@ -43,7 +43,7 @@ public class MchInfo {
     /**
      * 启用状态:0-关闭,1-开启
      */
-    private Boolean status;
+    private boolean open;
 
     /**
      * 获取主键ID
@@ -135,22 +135,12 @@ public class MchInfo {
         this.modifyTime = modifyTime;
     }
 
-    /**
-     * 获取启用状态:0-关闭,1-开启
-     *
-     * @return status - 启用状态:0-关闭,1-开启
-     */
-    public Boolean getStatus() {
-        return status;
+    public boolean isOpen() {
+        return open;
     }
 
-    /**
-     * 设置启用状态:0-关闭,1-开启
-     *
-     * @param status 启用状态:0-关闭,1-开启
-     */
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 
     @Override
@@ -161,7 +151,7 @@ public class MchInfo {
                 ", mchKey='" + mchKey + '\'' +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +
-                ", status=" + status +
+                ", open=" + open +
                 '}';
     }
 }

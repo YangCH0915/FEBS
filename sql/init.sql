@@ -220,7 +220,7 @@ CREATE TABLE `passageway` (
   `pay_type` varchar(32) NOT NULL COMMENT '支付类型',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `modify_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
+  `state`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
   `passageway_id` varchar (11) NOT NULL COMMENT '通道标识ID',
   `passageway_name` varchar(100) NOT NULL COMMENT '通道名称',
   PRIMARY KEY (`id`),
@@ -240,9 +240,9 @@ CREATE TABLE `order` (
   `trade_no` varchar(50) NOT NULL COMMENT '平台订单号',
   `pay_type` varchar(32) NOT NULL COMMENT '支付类型',
   `amount` int (11) NOT NULL COMMENT '金额，单位为分',
-  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '订单状态:0-已取消,1-未支付,2-已支付',
+  `status`char (1) NOT NULL DEFAULT '1' COMMENT '订单状态:0-已取消,1-未支付,2-已支付',
   `product_id` varchar(32) DEFAULT NULL COMMENT '产品ID',
-  `callback_status` tinyint(3) unsigned zerofill DEFAULT '0' COMMENT '是否已同步渠道,0-3未同步或未成功,9-成功',
+  `callback_status` char(3)  DEFAULT '0' COMMENT '是否已同步渠道,0-3未同步或未成功,9-成功',
   `user_ip` varchar(32) DEFAULT NULL COMMENT '用户IP',
   `body` varchar(32) NOT NULL COMMENT '商品名称',
   `nonce_str` varchar(32) NOT NULL COMMENT '随机字符串',
@@ -276,7 +276,7 @@ CREATE TABLE `mch_info` (
   `mch_key` varchar(50) NOT NULL COMMENT '商户秘钥',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `modify_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
+  `open`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
@@ -294,7 +294,7 @@ CREATE TABLE `user_mch_pay` (
   `user_id` bigint(50) NOT NULL COMMENT '商户秘钥',
   `passageway_id` varchar(50) NOT NULL COMMENT '创建时间',
   `settlement_rate` float NOT NULL default 1 COMMENT '费率',
-  `status`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
+  `valid`tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用状态:0-关闭,1-开启',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
@@ -302,11 +302,6 @@ insert into user_mch_pay values (1,'5646546',1,'15338987',1,true);
 insert into user_mch_pay values (2,'5646546',1,'15338988',1,true);
 insert into user_mch_pay values (3,'10023654895',171,'15338987',1,true);
 insert into user_mch_pay values (4,'10023654895',171,'15338988',1,true);
-
-
-
-
-
 
 
 -- ----------------------------

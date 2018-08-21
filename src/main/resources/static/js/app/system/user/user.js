@@ -44,8 +44,8 @@ $(function () {
             field: 'status',
             title: '状态',
             formatter: function (value, row, index) {
-                if (value === '1') return '<span class="badge badge-success">有效</span>';
-                if (value === '0') return '<span class="badge badge-warning">锁定</span>';
+                if (value) return '<span class="badge badge-success">有效</span>';
+                return '<span class="badge badge-warning">锁定</span>';
             }
         }
         ]

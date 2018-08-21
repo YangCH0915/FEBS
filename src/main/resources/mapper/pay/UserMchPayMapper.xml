@@ -10,6 +10,14 @@
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="passageway_id" jdbcType="VARCHAR" property="passagewayId" />
     <result column="settlement_rate" jdbcType="REAL" property="settlementRate" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <result column="valid" jdbcType="BIT" property="valid" />
   </resultMap>
+
+  <update id="changeState">
+     update user_mch_pay set valid=#{valid} where mch_id=#{mchId} and passageway_id=#{passagewayId}
+  </update>
+
+  <delete id="deleteMchInfo">
+    delete from user_mch_pay where mch_id=#{mchId} and passageway_id=#{passagewayId}
+  </delete>
 </mapper>

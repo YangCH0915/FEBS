@@ -27,4 +27,21 @@ public interface MchInfoService extends IService<MchInfo> {
      * @return
      */
     MchInfoRelation findMchInfoRelationByMchID(String mchId);
+
+    /**
+     * 根据商户号ID,通道ID更新状态
+     * @param mchId
+     * @param passagewayId
+     * @param open
+     * @return
+     */
+    int changeState(String mchId,String passagewayId,boolean open);
+
+    /**
+     * 根据商户号ID,通道ID解除绑定
+     * @param mchId
+     * @param passagewayId
+     * @return
+     */
+    int deleteMchInfo(String mchId,String passagewayId);
 }

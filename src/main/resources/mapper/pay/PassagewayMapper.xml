@@ -14,7 +14,7 @@
         <result column="pay_type" jdbcType="VARCHAR" property="payType"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
-        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="state" jdbcType="BIT" property="state"/>
         <result column="passageway_id" jdbcType="VARCHAR" property="passagewayId"/>
         <result column="passageway_name" jdbcType="VARCHAR" property="passagewayName"/>
     </resultMap>

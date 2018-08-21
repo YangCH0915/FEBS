@@ -48,11 +48,11 @@ $(function () {
             field: 'modifyTime',
             title: '修改时间'
         }, {
-            field: 'status',
+            field: 'state',
             title: '状态',
             formatter: function (value, row, index) {
-                if (value == true) return '<span class="badge badge-success">有效</span>';
-                if (value == false) return '<span class="badge badge-warning">锁定</span>';
+                if (value) return '<span class="badge badge-success">有效</span>';
+               return '<span class="badge badge-warning">锁定</span>';
             }
         }, {
             title: '操作',

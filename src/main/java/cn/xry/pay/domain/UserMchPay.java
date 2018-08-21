@@ -1,9 +1,12 @@
 package cn.xry.pay.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "user_mch_pay")
-public class UserMchPay {
+public class UserMchPay implements Serializable {
+
+    private static final long serialVersionUID = -20000L;
     /**
      * 主键ID
      */
@@ -38,7 +41,7 @@ public class UserMchPay {
     /**
      * 启用状态:0-关闭,1-开启
      */
-    private Boolean status;
+    private boolean valid;
 
     /**
      * 获取主键ID
@@ -130,21 +133,11 @@ public class UserMchPay {
         this.settlementRate = settlementRate;
     }
 
-    /**
-     * 获取启用状态:0-关闭,1-开启
-     *
-     * @return status - 启用状态:0-关闭,1-开启
-     */
-    public Boolean getStatus() {
-        return status;
+    public boolean isValid() {
+        return valid;
     }
 
-    /**
-     * 设置启用状态:0-关闭,1-开启
-     *
-     * @param status 启用状态:0-关闭,1-开启
-     */
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }
