@@ -13,18 +13,18 @@
     <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
     <result column="pay_type" jdbcType="VARCHAR" property="payType" />
     <result column="amount" jdbcType="INTEGER" property="amount" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <result column="status" jdbcType="CHAR" property="status" />
     <result column="product_id" jdbcType="VARCHAR" property="productId" />
-    <result column="callback_status" jdbcType="TINYINT" property="callbackStatus" />
+    <result column="callback_status" jdbcType="CHAR" property="callbackStatus" />
     <result column="user_ip" jdbcType="VARCHAR" property="userIp" />
     <result column="body" jdbcType="VARCHAR" property="body" />
     <result column="nonce_str" jdbcType="VARCHAR" property="nonceStr" />
     <result column="attach" jdbcType="VARCHAR" property="attach" />
-    <result column="notifyUrl" jdbcType="VARCHAR" property="notifyurl" />
-    <result column="callbackUrl" jdbcType="VARCHAR" property="callbackurl" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="callback_url" jdbcType="VARCHAR" property="callbackUrl" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="limitPay" jdbcType="VARCHAR" property="limitpay" />
-    <result column="sceneInfo" jdbcType="VARCHAR" property="sceneinfo" />
+    <result column="limit_pay" jdbcType="VARCHAR" property="limitPay" />
+    <result column="scene_info" jdbcType="VARCHAR" property="sceneInfo" />
   </resultMap>
 </mapper>

@@ -1,27 +1,17 @@
 <div class="card" xmlns:shiro="http://www.w3.org/1999/xhtml">
+    <div data-th-include="system/user/userAdd"></div>
     <div class="card-block">
         <div class="table-responsive">
             <div id="data-table_wrapper" class="dataTables_wrapper">
-                <div class="dataTables_buttons hidden-sm-down actions">
-                    <span class="actions__item zmdi zmdi-search" onclick="search()" title="搜索"/>
-                    <span class="actions__item zmdi zmdi-refresh-alt" onclick="refresh()" title="刷新"/>
-                </div>
                 <div id="data-table_filter" class="dataTables_filter">
-                    <form class="mch-table-form">
+                    <form class="order-table-form">
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <span class="input-group-addon"> 商户号： </span>
+                                    <span class="input-group-addon"> 用户名： </span>
                                     <div class="form-group">
-                                        <input type="text" name="mchId" class="form-control"> <i class="form-group__bar"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="input-group">
-                                    <span class="input-group-addon"> 渠道名称： </span>
-                                    <div class="form-group">
-                                        <input type="text" name="cname" class="form-control"> <i class="form-group__bar"></i>
+                                        <input type="text" name="username" class="form-control"> <i
+                                            class="form-group__bar"></i>
                                     </div>
                                 </div>
                             </div>
@@ -37,12 +27,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-3">
+                                <span class="actions__item zmdi zmdi-search" onclick="search()" title="搜索" />
+                                <span class="actions__item zmdi zmdi-refresh-alt" onclick="refresh()" title="刷新" />
+                            </div>
                         </div>
                     </form>
                 </div>
-                <table id="mchTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+                <table id="orderTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
             </div>
         </div>
     </div>
 </div>
-<script data-th-src="@{js/app/pay/merchant.js}"></script>
+<script data-th-src="@{js/app/order/order.js}"></script>

@@ -1,7 +1,10 @@
 package cn.xry.pay.domain;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
-import javax.persistence.*;
 
 public class Order {
     /**
@@ -55,7 +58,7 @@ public class Order {
     /**
      * 订单状态:0-已取消,1-未支付,2-已支付
      */
-    private Boolean status;
+    private String status;
 
     /**
      * 产品ID
@@ -67,7 +70,7 @@ public class Order {
      * 是否已同步渠道,0-3未同步或未成功,9-成功
      */
     @Column(name = "callback_status")
-    private Byte callbackStatus;
+    private String callbackStatus;
 
     /**
      * 用户IP
@@ -94,14 +97,14 @@ public class Order {
     /**
      * 异步通知地址
      */
-    @Column(name = "notifyUrl")
-    private String notifyurl;
+    @Column(name = "notify_url")
+    private String notifyUrl;
 
     /**
      * 前端回调地址
      */
-    @Column(name = "callbackUrl")
-    private String callbackurl;
+    @Column(name = "callback_url")
+    private String callbackUrl;
 
     /**
      * 创建时间
@@ -118,14 +121,14 @@ public class Order {
     /**
      * 是否限制使用信用卡
      */
-    @Column(name = "limitPay")
-    private String limitpay;
+    @Column(name = "limit_pay")
+    private String limitPay;
 
     /**
      * 场景信息
      */
-    @Column(name = "sceneInfo")
-    private String sceneinfo;
+    @Column(name = "scene_info")
+    private String sceneInfo;
 
     /**
      * 获取主键ID
@@ -276,7 +279,7 @@ public class Order {
      *
      * @return status - 订单状态:0-已取消,1-未支付,2-已支付
      */
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -285,8 +288,8 @@ public class Order {
      *
      * @param status 订单状态:0-已取消,1-未支付,2-已支付
      */
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
     /**
@@ -312,7 +315,7 @@ public class Order {
      *
      * @return callback_status - 是否已同步渠道,0-3未同步或未成功,9-成功
      */
-    public Byte getCallbackStatus() {
+    public String getCallbackStatus() {
         return callbackStatus;
     }
 
@@ -321,8 +324,8 @@ public class Order {
      *
      * @param callbackStatus 是否已同步渠道,0-3未同步或未成功,9-成功
      */
-    public void setCallbackStatus(Byte callbackStatus) {
-        this.callbackStatus = callbackStatus;
+    public void setCallbackStatus(String callbackStatus) {
+        this.callbackStatus = callbackStatus == null ? null : callbackStatus.trim();
     }
 
     /**
@@ -400,37 +403,37 @@ public class Order {
     /**
      * 获取异步通知地址
      *
-     * @return notifyUrl - 异步通知地址
+     * @return notify_url - 异步通知地址
      */
-    public String getNotifyurl() {
-        return notifyurl;
+    public String getNotifyUrl() {
+        return notifyUrl;
     }
 
     /**
      * 设置异步通知地址
      *
-     * @param notifyurl 异步通知地址
+     * @param notifyUrl 异步通知地址
      */
-    public void setNotifyurl(String notifyurl) {
-        this.notifyurl = notifyurl == null ? null : notifyurl.trim();
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl == null ? null : notifyUrl.trim();
     }
 
     /**
      * 获取前端回调地址
      *
-     * @return callbackUrl - 前端回调地址
+     * @return callback_url - 前端回调地址
      */
-    public String getCallbackurl() {
-        return callbackurl;
+    public String getCallbackUrl() {
+        return callbackUrl;
     }
 
     /**
      * 设置前端回调地址
      *
-     * @param callbackurl 前端回调地址
+     * @param callbackUrl 前端回调地址
      */
-    public void setCallbackurl(String callbackurl) {
-        this.callbackurl = callbackurl == null ? null : callbackurl.trim();
+    public void setCallbackUrl(String callbackUrl) {
+        this.callbackUrl = callbackUrl == null ? null : callbackUrl.trim();
     }
 
     /**
@@ -472,36 +475,36 @@ public class Order {
     /**
      * 获取是否限制使用信用卡
      *
-     * @return limitPay - 是否限制使用信用卡
+     * @return limit_pay - 是否限制使用信用卡
      */
-    public String getLimitpay() {
-        return limitpay;
+    public String getLimitPay() {
+        return limitPay;
     }
 
     /**
      * 设置是否限制使用信用卡
      *
-     * @param limitpay 是否限制使用信用卡
+     * @param limitPay 是否限制使用信用卡
      */
-    public void setLimitpay(String limitpay) {
-        this.limitpay = limitpay == null ? null : limitpay.trim();
+    public void setLimitPay(String limitPay) {
+        this.limitPay = limitPay == null ? null : limitPay.trim();
     }
 
     /**
      * 获取场景信息
      *
-     * @return sceneInfo - 场景信息
+     * @return scene_info - 场景信息
      */
-    public String getSceneinfo() {
-        return sceneinfo;
+    public String getSceneInfo() {
+        return sceneInfo;
     }
 
     /**
      * 设置场景信息
      *
-     * @param sceneinfo 场景信息
+     * @param sceneInfo 场景信息
      */
-    public void setSceneinfo(String sceneinfo) {
-        this.sceneinfo = sceneinfo == null ? null : sceneinfo.trim();
+    public void setSceneInfo(String sceneInfo) {
+        this.sceneInfo = sceneInfo == null ? null : sceneInfo.trim();
     }
 }

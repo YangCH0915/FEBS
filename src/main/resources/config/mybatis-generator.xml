@@ -44,7 +44,7 @@
         </javaClientGenerator>
         <!-- 配置需要生成的表 -->
 
-        <table tableName="user_mch_pay" domainObjectName="UserMchPay" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="order" domainObjectName="Order" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
